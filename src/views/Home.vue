@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <div class="chat-list" v-for="chat in chatsList">
-      <button>{{ chat.title }}</button>
-      <!-- <ChatItem title={{chat.title}} /> -->
+      <ChatItem :title="chat.title" />
     </div>
   </div>
 </template>

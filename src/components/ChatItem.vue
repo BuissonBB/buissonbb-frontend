@@ -1,7 +1,5 @@
 <template>
-  <div class="hello">
-    <button>{{ title }}</button>
-  </div>
+    <button class="chat-item">{{ title }}</button>
 </template>
 
 <script lang="ts">
@@ -19,18 +17,19 @@ export default class ChatButton extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.chat-item {
+  width: 96%;
+  height: 5%;
+  margin: 2%;
+  padding: 2%;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(185, 185, 185);
+  border-radius: 5px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.chat-item:hover {
+  background-color: rgb(150, 150, 150);
 }
 </style>

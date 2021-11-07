@@ -42,7 +42,7 @@ export default {
     clickSend: function () {
         document.getElementById("send").click();
     }
-  }, //test
+  },
 
   components: {
     Message

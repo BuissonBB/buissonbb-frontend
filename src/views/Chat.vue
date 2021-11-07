@@ -13,7 +13,7 @@
   <div class="chatbar">
     <hr/>
     <label>
-      <input type="text" placeholder="Envoyer un message" v-on:keyup.enter="clickSend()" v-model="messageText"/>
+      <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="clickSend" v-model="messageText"/>
     </label>
     <button @click="addMessage(messageText, 1, 0)" id="send">Envoyer</button>
   </div>
@@ -40,7 +40,17 @@ export default {
 
   methods: {
     clickSend: function () {
-        document.getElementById("send").click();
+        document.getElementById("send").click()
+    },
+
+    isInputEmpty: function() {
+      var inputChat = document.getElementById("inputChat")
+      var sendButton = document.getElementById("send")
+      if (inputChat.length === 0) {
+        sendButton.disabled = true
+      } else {
+        sendButton.disabled = false
+      }
     }
   },
 

@@ -13,9 +13,9 @@
   <div class="chatbar">
     <hr/>
     <label>
-      <input type="text" placeholder="Envoyer un message" v-model="messageText" />
+      <input type="text" placeholder="Envoyer un message" v-on:keyup.enter="clickSend()" v-model="messageText"/>
     </label>
-    <button @click="addMessage(messageText, 1, 0)">Ajouter</button>
+    <button @click="addMessage(messageText, 1, 0)" id="send">Envoyer</button>
   </div>
 </template>
 
@@ -38,19 +38,16 @@ export default {
     }
   },
 
+  methods: {
+    clickSend: function () {
+        document.getElementById("send").click();
+    }
+  },
+
   components: {
     Message
   } 
 }
-
-document.getElementById("retirer")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      document.getElementById("retirer").click();
-    }
-});
 </script>
 
 <style>
@@ -79,6 +76,5 @@ li {
   bottom: 0;
   width: 100%;
   padding-bottom: 1em;
-  
 }
 </style>

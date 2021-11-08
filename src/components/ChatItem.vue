@@ -1,17 +1,22 @@
 <template>
+  <router-link :to="{ name: 'Chat', params: { chatId: this.chatId } }">
     <button class="chat-item">{{ title }}</button>
+  </router-link>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+import router from "@/router";
 
 @Options({
   props: {
-    title: String
+    title: String,
+    chatId: Number
   }
 })
 export default class ChatButton extends Vue {
   title!: string
+  chatId!: number
 }
 </script>
 

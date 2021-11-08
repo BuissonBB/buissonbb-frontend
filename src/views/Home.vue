@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="chat-list" v-for="chat in chatsList">
-      <ChatItem :title="chat.title" />
+      <ChatItem :title="chat.title" :chatId="chat.id"/>
     </div>
   </div>
 </template>

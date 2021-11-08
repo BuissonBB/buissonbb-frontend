@@ -90,7 +90,16 @@ li {
   padding-bottom: 1em;
 }
 
+.chatbar {
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 1em;
+  height: 10vh;
+}
+
 .chat {
-  position: relative;
+  overflow:scroll;
+  overflow-x: hidden;
+  height: 75vh;
 }
 </style>

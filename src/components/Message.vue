@@ -29,7 +29,7 @@ p {
     display: flex;
 	border-radius: 1em;
 	padding: 0.5em 1em;
-	margin: 0.0625em;
+	margin-top: 0.3em;
 	max-width: 30%;
     background-color: cornflowerblue;
 }

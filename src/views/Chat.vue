@@ -3,7 +3,6 @@
     <div class="chat">
       <ul>
         <li v-for="message in messagesList">
-          <span><button @click="deleteMessage(message.id)" id="retirer">Retirer</button></span>
           <Message :msg=message.text></Message>
         </li>
       </ul>
@@ -72,15 +71,6 @@ li {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-#retirer {
-  background-color: tomato;
-  display: flex;
-  border-radius: 0.5em;
-  padding: 0.25em 0.5em;
-  font-size: 0.6em;
-  
 }
 
 .chatbar {

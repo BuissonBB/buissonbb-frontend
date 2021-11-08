@@ -1,11 +1,18 @@
 <template>
   <div class="message">
-    <p class="bubble">{{ msg }}</p>
+    <p class="bubble">{{ msg }}
+        <button @click="deleteMessage(message.id)">
+            <img src="../../public/img/icons/trash.png"/>
+        </button>
+    </p>
   </div>
 </template>
 
 <script lang="ts">
+import { ref } from 'vue'
+
 import { Options, Vue } from 'vue-class-component'
+import { useMessages } from '../use/useMessages'
 
 @Options({
   props: {
@@ -14,6 +21,18 @@ import { Options, Vue } from 'vue-class-component'
 })
 export default class Message extends Vue {
   msg!: string
+  
+  setup() {
+    const { messagesList, deleteMessage } = useMessages()
+
+    const messageText = ref('')
+
+    return {
+      messagesList,
+      deleteMessage,
+      messageText
+    }
+  }
 }
 </script>
 
@@ -27,6 +46,7 @@ p {
 
 .bubble {
     display: flex;
+    justify-content: space-between;
 	border-radius: 1em;
 	padding: 0.5em 1em;
 	margin-top: 0.3em;

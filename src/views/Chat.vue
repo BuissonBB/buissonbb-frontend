@@ -1,21 +1,23 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="message in messagesList">
-        <span><button @click="deleteMessage(message.id)" id="retirer">Retirer</button></span>
-        <Message :msg=message.text></Message>
-      </li>
-    </ul>
-    <div v-if="messagesList.length === 0">
-      Aucun message présent dans ce chat
+  <div class="content">
+    <div class="chat">
+      <ul>
+        <li v-for="message in messagesList">
+          <span><button @click="deleteMessage(message.id)" id="retirer">Retirer</button></span>
+          <Message :msg=message.text></Message>
+        </li>
+      </ul>
+      <div v-if="messagesList.length === 0">
+        Aucun message présent dans ce chat
+      </div>
     </div>
-  </div>
-  <div class="chatbar">
-    <hr/>
-    <label>
-      <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="clickSend" v-model="messageText"/>
-    </label>
-    <button @click="addMessage(messageText, 1, 0)" id="send">Envoyer</button>
+    <div class="chatbar">
+      <hr/>
+      <label>
+        <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="clickSend" v-model="messageText"/>
+      </label>
+      <button @click="addMessage(messageText, 1, 0)" id="send">Envoyer</button>
+    </div>
   </div>
 </template>
 
@@ -86,5 +88,9 @@ li {
   bottom: 0;
   width: 100%;
   padding-bottom: 1em;
+}
+
+.chat {
+  position: relative;
 }
 </style>

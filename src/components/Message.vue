@@ -1,9 +1,7 @@
 <template>
   <div class="message">
     <p class="bubble">{{ msg }}
-        <button @click="deleteMessage(message.id)">
-            <img src="../../public/img/icons/trash.png"/>
-        </button>
+        <img @click="deleteMessage(msgId)" src="../../public/img/icons/trash.png"/>
     </p>
   </div>
 </template>
@@ -16,19 +14,22 @@ import { useMessages } from '../use/useMessages'
 
 @Options({
   props: {
-    msg: String
+    msg: String,
+    msgId: Number
   }
 })
 export default class Message extends Vue {
-  msg!: string
+  msg!: String
+  msgId!: Number
   
   setup() {
-    const { messagesList, deleteMessage } = useMessages()
+    const { messagesList, addMessage, deleteMessage } = useMessages()
 
     const messageText = ref('')
 
     return {
       messagesList,
+      addMessage,
       deleteMessage,
       messageText
     }

@@ -3,7 +3,7 @@
     <div class="chat">
       <ul>
         <li v-for="message in messagesList">
-          <Message :msg=message.text></Message>
+          <Message :msg=message.text :msgId=message.id></Message>
         </li>
       </ul>
       <div v-if="messagesList.length === 0">

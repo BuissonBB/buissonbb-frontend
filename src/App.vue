@@ -3,7 +3,7 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/auth">Authentification</router-link> |
     <router-link to="/items">Items</router-link> |
-    <router-link to="/chat">Chat</router-link>
+    <router-link to="/chat/0">Chat</router-link>
   </div>
   <router-view/>
 </template>

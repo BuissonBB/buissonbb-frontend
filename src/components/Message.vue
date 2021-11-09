@@ -40,10 +40,12 @@ p {
 	margin-top: 0.3em;
 	max-width: 30%;
     background-color: cornflowerblue;
+    overflow-wrap: anywhere;
 }
 
 img {
     height: 25px;
     height: 25px;
+    cursor:not-allowed;
 }
 </style>

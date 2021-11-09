@@ -13,9 +13,9 @@
     <div class="chatbar">
       <hr/>
       <label>
-        <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="clickSend" v-model="messageText"/>
+        <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="sendMessage" v-model="messageText"/>
       </label>
-      <button @click="addMessage(messageText, 1, 0)" id="send">Envoyer</button>
+      <button @click=sendMessage id="send">Envoyer</button>
     </div>
   </div>
 </template>
@@ -40,8 +40,10 @@ export default {
   },
 
   methods: {
-    clickSend: function () {
-        document.getElementById("send").click()
+    sendMessage: function () {
+        this.addMessage(this.messageText, 1, 0);
+        this.messageText = ''
+        document.getElementById("inputChat").focus()
     },
 
     isInputEmpty: function() {

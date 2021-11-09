@@ -46,6 +46,6 @@ p {
 img {
     height: 25px;
     height: 25px;
-    cursor:not-allowed;
+    cursor: pointer;
 }
 </style>

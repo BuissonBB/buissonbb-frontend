@@ -15,7 +15,7 @@
       <label>
         <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="sendMessage" v-model="messageText"/>
       </label>
-      <button @click=sendMessage id="send">Envoyer</button>
+      <button @click=sendMessage id="send" disabled>Envoyer</button>
     </div>
   </div>
 </template>
@@ -41,15 +41,19 @@ export default {
 
   methods: {
     sendMessage: function () {
+      var inputChat = document.getElementById("inputChat")
+      if (inputChat.value != "") {
         this.addMessage(this.messageText, 1, 0);
         this.messageText = ''
         document.getElementById("inputChat").focus()
+        document.getElementById("send").disabled = true
+      }
     },
 
     isInputEmpty: function() {
       var inputChat = document.getElementById("inputChat")
       var sendButton = document.getElementById("send")
-      if (inputChat.length === 0) {
+      if (inputChat.value == "") {
         sendButton.disabled = true
       } else {
         sendButton.disabled = false

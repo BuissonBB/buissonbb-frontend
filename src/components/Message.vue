@@ -1,39 +1,26 @@
 <template>
   <div class="message">
-    <p class="bubble">{{ msg }}
-        <img @click="deleteMessage(msgId)" src="../../public/img/icons/trash.png"/>
+    <p class="bubble">{{ msgText }}
+        <img @click="deleteMessageFunction(msgId)" src="../../public/img/icons/trash.png"/>
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
 
 import { Options, Vue } from 'vue-class-component'
-import { useMessages } from '../use/useMessages'
 
 @Options({
   props: {
-    msg: String,
-    msgId: Number
+    msgText: String,
+    msgId: Number,
+    deleteMessageFunction: Function
   }
 })
 export default class Message extends Vue {
-  msg!: String
+  msgText!: String
   msgId!: Number
-  
-  setup() {
-    const { messagesList, addMessage, deleteMessage } = useMessages()
-
-    const messageText = ref('')
-
-    return {
-      messagesList,
-      addMessage,
-      deleteMessage,
-      messageText
-    }
-  }
+  deleteMessageFunction!: void
 }
 </script>
 
@@ -53,5 +40,10 @@ p {
 	margin-top: 0.3em;
 	max-width: 30%;
     background-color: cornflowerblue;
+}
+
+img {
+    height: 25px;
+    height: 25px;
 }
 </style>

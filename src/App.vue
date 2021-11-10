@@ -2,7 +2,6 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/auth">Authentification</router-link> |
-    <router-link to="/items">Items</router-link> |
     <router-link to="/chat/0">Chat</router-link>
   </div>
   <router-view/>
@@ -18,7 +17,7 @@
 }
 
 #nav {
-  padding: 30px;
+  height: 10vh;
 }
 
 #nav a {

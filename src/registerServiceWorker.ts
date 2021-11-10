@@ -1,6 +1,8 @@
 import { register } from 'register-service-worker'
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
+// Disable service worker because it's annoying for the moment
+if(false) {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready () {
       console.log(

@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    background-color: #F2F2F2;
+}
+
+a {
+    text-decoration: none;
+}
+
+#appbar {
+    background: linear-gradient(90deg, #27AE60 18.78%, #27AE60 89.56%);
+    display: block;
+    position: relative;
+    height: 66px;
+    font-family: 'Comfortaa';
+    color: white;
+    font-weight: bold;
+
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#title-link {
+    color: white;
+}
+
+#title {
+    margin: 0;
+    font-size: 24px;
+    line-height: 27px;
+    /* Centrer le texte verticallement : */
+    height: 66px;
+    line-height: 66px;
+    padding: 0 4em 0 2em;
+    background: url(appbar-left.svg);
+    display: inline-block;
+    background-size: cover;
+    background-position: 100%;
+}
+
+#login-buttons {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    line-height: 28px;
+    background: url(appbar-right.svg);
+    padding-left: 3em;
+    background-size: cover;
+    font-size: 18px;
+}
+
+#login-buttons > a {
+    /* Centrer le texte verticallement : */
+    height: 66px;
+    line-height: 66px;
+    padding: 0px 2em;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color .33s;
+    position: relative;
+    color: white;
+}
+
+#login-buttons > a::after {
+    content: "";
+    height: 3px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 72%;
+    transition: left .33s, right .33s;
+    border-radius: 5px;
+}
+
+#login-buttons > a:hover::after {
+    left: 40%;
+    right: 40%;
+}
+
+#main {
+    max-width: 974px;
+    margin: auto;
+    margin-top: 8em;
+}
+
+.section {
+    margin-bottom: 5em;
+}
+
+.section-title {
+    font-family: Roboto;
+    text-transform: uppercase;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 33px;
+}
+
+.section-icon {
+    width: 60px;
+    vertical-align: middle;
+    margin-left: 1em;
+}
+
+.categories {
+    background: white;
+    position: relative;
+    border-radius: 8px;
+}
+
+.categories-border {
+    position: absolute;
+    left: 0px;
+    width: 13px;
+    top: -10px;
+    bottom: -10px;
+    border-radius: 10px 0 10px 0;
+}
+
+.category {
+    display: block;
+    padding: 0.7em 2em;
+    line-height: 20px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 22px;
+    font-weight: 500;
+    transition: background-color .33s;
+    cursor: pointer;
+}
+
+.category:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.category-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.category-icon {
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 2em;
+    display: inline-block;
+}

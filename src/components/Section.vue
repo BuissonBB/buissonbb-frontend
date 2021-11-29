@@ -1,10 +1,10 @@
 <template>
     <div class="section">
-        <h2 class="section-title">{{ title }} <img src="gamepad.png" class="section-icon" /></h2>
+        <h2 class="section-title">{{ name }}<img :src="asset(icon)" class="section-icon" /></h2>
         <div class="categories">
-            <div class="categories-border" style="background: {{ color }};"></div>
-            <a v-for="category in categories" class="category" href="/thread" style="background-image: url({{ category.icon }})">
-            {{category.name}}<a/>
+            <div class="categories-border" :style="`background: ${color};`"></div>
+            <a v-for="category in categories" class="category" href="/thread">
+            <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>{{ category.name }}</a>
         </div>
     </div>
 </template>
@@ -13,87 +13,93 @@
 
 import { Options, Vue } from 'vue-class-component';
 import CategoryModel from '@/models/CategoryModel';
+import { BACKEND_URL } from '@/settings'
+            console.log("backend", BACKEND_URL);
 
-@Options({
-  props: {
-    title: string,
-    color: string,
-    icon: string,
-    categories: CategoryModel[]
-  }
-})
-export default class Section extends Vue {
+function asset(str) {
+    return str+"--";
 }
+
+export default {
+    methods: {
+        asset: (str) => {
+            return BACKEND_URL+str;
+        },
+    },
+
+    props: {
+        name: String,
+        icon: String,
+        color: String,
+        categories: CategoryModel
+    }
+};
 </script>
 
 <style scoped>
-#appbar {
-    background: linear-gradient(90deg, #27AE60 18.78%, #27AE60 89.56%);
-    display: block;
-    position: relative;
-    height: 66px;
-    font-family: 'Comfortaa';
-    color: white;
+.section {
+    margin-bottom: 5em;
+}
+
+.section-title {
+    font-family: Roboto;
+    text-transform: uppercase;
+    font-family: Roboto;
+    font-style: normal;
     font-weight: bold;
-
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 33px;
 }
 
-#title-link {
-    color: white;
+.section-icon {
+    width: 60px;
+    vertical-align: middle;
+    margin-left: 1em;
 }
 
-#title {
-    margin: 0;
-    font-size: 24px;
-    line-height: 27px;
-    /* Centrer le texte verticallement : */
-    height: 66px;
-    line-height: 66px;
-    padding: 0 4em 0 2em;
-    background: url('~@/assets/appbar-left.svg');
-    display: inline-block;
-    background-size: cover;
-    background-position: 100%;
-}
-
-#login-buttons {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    line-height: 28px;
-    background: url('~@/assets/appbar-right.svg');
-    padding-left: 3em;
-    background-size: cover;
-    font-size: 18px;
-}
-
-#login-buttons > a {
-    /* Centrer le texte verticallement : */
-    height: 66px;
-    line-height: 66px;
-    padding: 0px 2em;
-    cursor: pointer;
-    display: inline-block;
-    transition: background-color .33s;
+.categories {
+    background: white;
     position: relative;
-    color: white;
+    border-radius: 8px;
 }
 
-#login-buttons > a::after {
-    content: "";
-    height: 3px;
-    background-color: white;
+.categories-border {
     position: absolute;
-    left: 50%;
-    right: 50%;
-    top: 72%;
-    transition: left .33s, right .33s;
-    border-radius: 5px;
+    left: 0px;
+    width: 13px;
+    top: -10px;
+    bottom: -10px;
+    border-radius: 10px 0 10px 0;
 }
 
-#login-buttons > a:hover::after {
-    left: 40%;
-    right: 40%;
+.category {
+    display: block;
+    padding: 0.7em 2em;
+    line-height: 20px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 22px;
+    font-weight: 500;
+    transition: background-color .33s;
+    cursor: pointer;
+}
+
+.category:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.category-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.category-icon {
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 2em;
+    display: inline-block;
 }
 </style>

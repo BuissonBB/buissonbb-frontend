@@ -1,30 +1,63 @@
 <template>
-  <AppBar></AppBar>
   <div class="topic">
-    <h1>Topic</h1>
+    <div v-if="structure">
+    <div v-for="section in structure.sections">
+    <Section :name="section.name" :icon="section.icon" :color="section.color" :categories="section.categories"/>
+    </div>
+    </div>
+    <!-- <p>{{ structure }}</p> -->
   </div>
 </template>
 
 <script lang="ts">
 
-import { ref } from 'vue'
 import AppBar from '@/components/AppBar.vue';
-import { Options, Vue } from 'vue-class-component'
+import Section from '@/components/Section.vue';
+import { ref } from 'vue'
+import { Options, Vue, setup } from 'vue-class-component'
 
-import { useCategories } from "@/use/useCategories";
+import { useForumMeta } from "@/use/useForumMeta";
 
+import CategoryModel from '@/models/CategoryModel';
 
-@Options({
+// @Options({
+//   components: {
+//     AppBar,
+//     Section
+//   }
+// })
+// export default class TopicVue extends Vue {
+//   structure = setup(() => useForumMeta());
+
+//   created() {
+//     console.log(this!.structure.get());
+//   }
+//   // mounted() {
+//   //     const { categories } = useCategories();
+//   //     //@ts-ignore
+//   //     this.categories = categories;
+//   //     console.log("Categories", categories);
+//   // }
+//     // public constructor() {
+//     //     super();
+//     // }
+// };
+
+export default {
+  setup () {
+    const { structure } = useForumMeta();
+
+    console.log(structure);
+    
+    return {
+      structure
+    };
+  },
+
   components: {
-    AppBar
-  }
-})
-export default class TopicVue extends Vue {
-    public constructor() {
-        super();
-        const { categories } = useCategories();
-        console.log("Categories", categories);
-    }
-};
+    AppBar,
+    Section
+  } 
+}
 
 </script>

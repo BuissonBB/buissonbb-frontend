@@ -1,4 +1,4 @@
-export default interface CategoryModel {
-    title: string;
-    icon: string;
+export default class CategoryModel {
+    public title: string;
+    public icon: string;
 }

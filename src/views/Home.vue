@@ -42,7 +42,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .new-chat {
   text-align: right;
 }

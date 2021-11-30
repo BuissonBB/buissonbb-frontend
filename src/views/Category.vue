@@ -2,6 +2,7 @@
   <h1>Forum {{ $route.params.category }}</h1>
   <p>{{ topicList }}</p>
   <p>{{ category.name }}</p>
+  <p>{{ category.description }}</p>
   <img :src="asset(category.icon)"/>
 </template>
 

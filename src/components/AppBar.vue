@@ -1,6 +1,6 @@
 <template>
     <header id="appbar">
-        <a href="/" id="title-link"><h1 id="title">BuissonBB</h1></a>
+        <a href="/" id="title-link"><h1 id="title">{{ title }}</h1></a>
         <div id="login-buttons">
             <a href="#">Sign in</a>
             <a href="#">Sign up</a>
@@ -9,10 +9,17 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { useForumMeta } from '@/use/useForumMeta';
+import { defineComponent } from '@vue/runtime-core'
 
-export default class AppBar extends Vue {
-}
+export default defineComponent({
+    setup() {
+        const { title } = useForumMeta();
+        return {
+            title
+        };
+    }
+});
 </script>
 
 <style scoped>

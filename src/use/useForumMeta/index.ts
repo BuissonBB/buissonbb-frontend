@@ -1,44 +1,43 @@
-import { computed } from 'vue'
+import StructureModel from '@/models/StructureModel';
+import { BACKEND_URL } from '@/settings';
+import { reactive, computed } from 'vue'
+
+interface ForumMetaState {
+  forumMetaReady: boolean;
+  title: string;
+  structure: StructureModel;
+}
+
+const forumMetaState: ForumMetaState = reactive({
+  forumMetaReady: false,
+  title: "",
+  structure: new StructureModel()
+})
+
+function fetchForumMeta() {
+  fetch(BACKEND_URL + "/assets/forum.json").then(data => data.json()).then(data => {
+    forumMetaState.title = data.title;
+    forumMetaState.structure = data.structure;
+    forumMetaState.forumMetaReady = true;
+  });
+}
 
 const structure = computed(() => {
-  return {
-    "sections": [
-      {
-        "name": "Gaming",
-        "icon": "/assets/gamepad.png",
-        "color": "#27AE60",
-        "categories": [
-          {
-            "name": "Minecraft",
-            "icon": "/assets/pickaxe.png"
-          },
-          {
-            "name": "Pokémon",
-            "icon": "/assets/pokeball.png"
-          }
-        ]
-      },
-      {
-        "name": "Informatique",
-        "icon": "/assets/computer.png",
-        "color": "#BB6BD9",
-        "categories": [
-          {
-            "name": "Java",
-            "icon": "/assets/java.png"
-          },
-          {
-            "name": "C++",
-            "icon": "/assets/cpp.png"
-          }
-        ]
-      }
-    ]
-  };
+  if (!forumMetaState.forumMetaReady) {
+    fetchForumMeta();
+    return []
+  } else {
+    return forumMetaState.structure;
+  }
 });
 
 const title = computed(() => {
-  return "BuissonBB";
+  if (!forumMetaState.forumMetaReady) {
+    fetchForumMeta();
+    return "";
+  } else {
+    return forumMetaState.title;
+  }
 });
 
 export function useForumMeta() {

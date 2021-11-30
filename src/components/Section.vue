@@ -3,8 +3,10 @@
         <h2 class="section-title">{{ name }}<img :src="asset(icon)" class="section-icon" /></h2>
         <div class="categories">
             <div class="categories-border" :style="`background: ${color};`"></div>
-            <a v-for="category in categories" class="category" href="/thread">
-            <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>{{ category.name }}</a>
+              <router-link v-for="category in categories" :key="category.name" :to="{ name: 'Forum', params: { forum: category.name } }">
+                <a class="category" href="#">
+                    <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>{{ category.name }}</a>
+              </router-link>
         </div>
     </div>
 </template>
@@ -14,16 +16,15 @@
 import { Options, Vue } from 'vue-class-component';
 import CategoryModel from '@/models/CategoryModel';
 import { BACKEND_URL } from '@/settings'
-            console.log("backend", BACKEND_URL);
-
-function asset(str) {
-    return str+"--";
-}
 
 export default {
     methods: {
         asset: (str) => {
-            return BACKEND_URL+str;
+            if(str[0] === "/") {
+                return BACKEND_URL+str;
+            }else{
+                return str;
+            }
         },
     },
 

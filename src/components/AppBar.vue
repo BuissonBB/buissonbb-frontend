@@ -1,6 +1,8 @@
 <template>
     <header id="appbar">
-        <a href="/" id="title-link"><h1 id="title">{{ title }}</h1></a>
+        <router-link :to="{ name: 'Home'}">
+            <a href="#" id="title-link"><h1 id="title">{{ title }}</h1></a>
+        </router-link>
         <div id="login-buttons">
             <a href="#">Sign in</a>
             <a href="#">Sign up</a>
@@ -9,12 +11,12 @@
 </template>
 
 <script lang="ts">
-import { useForumMeta } from '@/use/useForumMeta';
+import { useForumConfig } from '@/use/useForumConfig';
 import { defineComponent } from '@vue/runtime-core'
 
 export default defineComponent({
     setup() {
-        const { title } = useForumMeta();
+        const { title } = useForumConfig();
         return {
             title
         };

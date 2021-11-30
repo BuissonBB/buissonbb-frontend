@@ -5,7 +5,6 @@
     <Section :name="section.name" :icon="section.icon" :color="section.color" :categories="section.categories"/>
     </div>
     </div>
-    <!-- <p>{{ structure }}</p> -->
   </div>
 </template>
 
@@ -13,42 +12,13 @@
 
 import AppBar from '@/components/AppBar.vue';
 import Section from '@/components/Section.vue';
-import { ref } from 'vue'
-import { Options, Vue, setup } from 'vue-class-component'
 
-import { useForumMeta } from "@/use/useForumMeta";
-
-import CategoryModel from '@/models/CategoryModel';
-
-// @Options({
-//   components: {
-//     AppBar,
-//     Section
-//   }
-// })
-// export default class TopicVue extends Vue {
-//   structure = setup(() => useForumMeta());
-
-//   created() {
-//     console.log(this!.structure.get());
-//   }
-//   // mounted() {
-//   //     const { categories } = useCategories();
-//   //     //@ts-ignore
-//   //     this.categories = categories;
-//   //     console.log("Categories", categories);
-//   // }
-//     // public constructor() {
-//     //     super();
-//     // }
-// };
+import { useForumConfig } from "@/use/useForumConfig";
 
 export default {
   setup () {
-    const { structure } = useForumMeta();
+    const { structure } = useForumConfig();
 
-    console.log(structure);
-    
     return {
       structure
     };

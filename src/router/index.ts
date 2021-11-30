@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-import Forum from '../views/Forum.vue'
+import Category from '../views/Category.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,9 +25,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Chat.vue')
   },
   {
-    path: '/forum/:forum',
-    name: 'Forum',
-    component: Forum
+    path: '/category/:category',
+    name: 'Category',
+    component: Category
   }
 ]
 

@@ -4,6 +4,20 @@
   <p>{{ category.name }}</p>
   <p>{{ category.description }}</p>
   <img :src="asset(category.icon)"/>
+
+  <br/>
+  <span>LISTE DES TOPICS</span>
+  <br/>
+
+  <router-link v-for="topic in topicList" :key="topic.subject" :to="{ name: 'Topic', params: { topic: topic.id } }">
+    <!--- COMPONENT TOPIC ICI -->
+    <a class="topic" href="#">
+      {{ topic.subject }}
+    </a>
+    <br/>
+    <!--- FIN COMPONENT -->
+  </router-link>
+
 </template>
 
 <script lang="ts">
@@ -26,7 +40,7 @@ export default defineComponent({
     const { category } = useForumConfig();
 
     return {
-      topicList: topicList(0),
+      topicList: topicList(route.params.category),
       category: category(route.params.category),
     };
   },

@@ -4,8 +4,11 @@
         <div class="categories">
             <div class="categories-border" :style="`background: ${color};`"></div>
               <router-link v-for="category in categories" :key="category.name" :to="{ name: 'Category', params: { category: category.id } }">
+                <!--- COMPONENT CATEGORY ICI -->
                 <a class="category" href="#">
-                    <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>{{ category.name }}</a>
+                    <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>{{ category.name }}
+                </a>
+                <!--- FIN COMPONENT -->
               </router-link>
         </div>
     </div>
@@ -37,7 +40,6 @@ export default {
 .section-title {
     font-family: Roboto;
     text-transform: uppercase;
-    font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 33px;

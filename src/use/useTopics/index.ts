@@ -5,7 +5,7 @@ import app from '@/feathers-client'
 export default interface Topic {
   id : number;
   subject: string;
-  category: number;
+  categoryId: number;
 }
 
 interface TopicState {
@@ -13,39 +13,51 @@ interface TopicState {
   topics: {[id: number]: Topic};
 }
 
-const topicsState: TopicState = reactive({
-  topicsListReady: false,
-  topics: {}
-})
+const topicsState: TopicState[] = [];
 
 app.service('topics').on('created', async (topic: Topic) => {
   console.log('TOPICS EVENT created', topic)
-  topicsState.topics[topic.id] = topic
+  topicsState[topic.categoryId].topics[topic.id] = topic
 })
 
 app.service('topics').on('patched', (topic: Topic) => {
   console.log('TOPICS EVENT patched', topic)
-  topicsState.topics[topic.id] = topic
+  topicsState[topic.categoryId].topics[topic.id] = topic
 })
 
 app.service('topics').on('removed', (topic: Topic) => {
   console.log('TOPICS EVENT removed', topic)
-  delete topicsState.topics[topic.id]
+  delete topicsState[topic.categoryId].topics[topic.id]
 })
 
+const topicStateReady = category => {
+  if(!topicsState[category]) {
+    topicsState[category] = reactive({
+      topicsListReady: false,
+      topics: {}
+    });
+  }
+  return topicsState[category].topicsListReady;
+
+}
+
 const topicList = category => computed(() => {
-  if (!topicsState.topicsListReady) {
-    app.service('topics').find({category}).then((list: Topic[]) => {
-      list.forEach(topic => { topicsState.topics[topic.id] = topic })
-      topicsState.topicsListReady = true
+  if(!topicStateReady(category)) {
+    app.service('topics').find({
+      query: {
+        categoryId: category
+      }
+    }).then((list: Topic[]) => {
+      list.forEach(topic => { topicsState[category].topics[topic.id] = topic })
+      topicsState[category].topicsListReady = true
     })
     return []
   }
-  return Object.values(topicsState.topics)
+  return Object.values(topicsState[category].topics)
 })
 
-const addTopic = (title: string) => {
-  app.service('topics').create({ title })
+const addTopic = (subject: string) => {
+  app.service('topics').create({ subject })
 }
 
 export function useTopics() {

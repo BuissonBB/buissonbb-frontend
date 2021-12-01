@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Category from '../views/Category.vue'
+import Topic from '../views/Topic.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -28,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/category/:category',
     name: 'Category',
     component: Category
+  },
+  {
+    path: '/topic/:topic',
+    name: 'Topic',
+    component: Topic
   }
 ]
 

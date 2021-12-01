@@ -22,7 +22,7 @@
 
 <script>
 import { ref } from 'vue'
-import { useMessages } from '../use/useMessages'
+import { useMessages } from '../use/usePosts'
 import Message from '@/components/Message.vue'
 
 export default {
@@ -42,7 +42,7 @@ export default {
   methods: {
     sendMessage: function () {
       var inputChat = document.getElementById("inputChat")
-      if (inputChat.value != "") {
+      if (inputChat.value !== "") {
         this.addMessage(this.messageText, 1, 0);
         this.messageText = ''
         document.getElementById("inputChat").focus()
@@ -63,7 +63,7 @@ export default {
 
   components: {
     Message
-  } 
+  }
 }
 </script>
 

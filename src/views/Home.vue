@@ -1,9 +1,9 @@
 <template>
   <div class="topic">
     <div v-if="structure">
-    <div v-for="section in structure.sections" :key="section.name">
-    <Section :name="section.name" :icon="section.icon" :color="section.color" :categories="section.categories"/>
-    </div>
+      <div v-for="section in structure.sections" :key="section.name">
+        <Section :name="section.name" :icon="section.icon" :color="section.color" :categories="section.categories"/>
+      </div>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
   components: {
     AppBar,
     Section
-  } 
+  }
 }
 
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <header id="appbar">
+    <header id="appbar" :style="`background: linear-gradient(90deg, ${colors[0]} 18.78%, ${colors[1]} 89.56%);`">
         <router-link :to="{ name: 'Home'}">
             <a href="#" id="title-link"><h1 id="title">{{ title }}</h1></a>
         </router-link>
@@ -16,9 +16,10 @@ import { defineComponent } from '@vue/runtime-core'
 
 export default defineComponent({
     setup() {
-        const { title } = useForumConfig();
+        const { title, colors } = useForumConfig();
         return {
-            title
+            title,
+            colors
         };
     }
 });
@@ -26,7 +27,6 @@ export default defineComponent({
 
 <style scoped>
 #appbar {
-    background: linear-gradient(90deg, #27AE60 18.78%, #27AE60 89.56%);
     display: block;
     position: relative;
     height: 66px;

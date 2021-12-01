@@ -6,25 +6,28 @@ import { reactive, computed } from 'vue'
 interface ForumConfigState {
   forumConfigReady: boolean;
   title: string;
+  colors: string[];
   structure: StructureModel;
   categories: {[id: number]: CategoryModel}
 }
 
 const forumConfigState: ForumConfigState = reactive({
   forumConfigReady: false,
-  title: "",
+  title: "BuissonBB",
+  colors: ["#27ae60", "#27ae60"],
   structure: new StructureModel(),
   categories: {}
 })
 
 let fetching = false;
 
-function fetchForumConfig() {
-  if(fetching) return;
+function retrieveForumConfig() {
+  if(fetching || forumConfigState.forumConfigReady) return;
   fetching = true;
   fetch(BACKEND_URL + "/assets/config.json").then(data => data.json()).then(data => {
     forumConfigState.title = data.title;
     forumConfigState.structure = data.structure;
+    forumConfigState.colors = data.colors;
     forumConfigState.forumConfigReady = true;
     let categories = {};
     for(const section of forumConfigState.structure.sections) {
@@ -37,35 +40,29 @@ function fetchForumConfig() {
 }
 
 const category = id => computed(() => {
-  if (!forumConfigState.forumConfigReady) {
-    fetchForumConfig();
-    return {}
-  } else {
-    return forumConfigState.categories[id];
-  }
+  retrieveForumConfig();
+  return forumConfigState.categories[id];
 });
 
 const structure = computed(() => {
-  if (!forumConfigState.forumConfigReady) {
-    fetchForumConfig();
-    return []
-  } else {
-    return forumConfigState.structure;
-  }
+  retrieveForumConfig();
+  return forumConfigState.structure;
 });
 
 const title = computed(() => {
-  if (!forumConfigState.forumConfigReady) {
-    fetchForumConfig();
-    return "";
-  } else {
-    return forumConfigState.title;
-  }
+  retrieveForumConfig();
+  return forumConfigState.title;
+});
+
+const colors = computed(() => {
+  retrieveForumConfig();
+  return forumConfigState.colors;
 });
 
 export function useForumConfig() {
   return {
     title,
+    colors,
     structure,
     category: category
   };

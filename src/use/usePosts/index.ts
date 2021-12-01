@@ -37,11 +37,7 @@ app.service('posts').on('removed', (post: Post) => {
 
 const postList = topic => computed(() => {
   if (!postsState.postsListReady) {
-    app.service('posts').find({//topicId: topic
-        query: {
-          topicId: topic
-        }
-      }).then((list: Post[]) => {
+    app.service('posts').find({topic}).then((list: Post[]) => {
       list.forEach(post => { postsState.posts[post.id] = post })
       postsState.postsListReady = true
     })

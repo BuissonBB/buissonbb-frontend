@@ -4,6 +4,7 @@ import app from '@/feathers-client'
 import CategoryModel from "@/models/CategoryModel";
 import topic from "@/views/Topic.vue";
 import {protocol} from "socket.io-client";
+import {usePosts} from "@/use/usePosts";
 
 export default interface Topic {
   id : number;
@@ -70,8 +71,15 @@ const topicsCount = (categoryId: number) => {
   return topicList(categoryId).value.length;
 }
 
+const totalPostsCount = (categoryId: number) => {
+  const { postsCount } = usePosts();
+  let count = 0;
+  topicList(categoryId).value.forEach((topic) => count += postsCount(topic.id));
+  return count;
+}
+
 export function useTopics() {
   return {
-    topicList, addTopic, deleteTopic, topicsCount
+    topicList, addTopic, deleteTopic, topicsCount, totalPostsCount
   }
 }

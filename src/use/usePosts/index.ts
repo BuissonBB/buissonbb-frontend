@@ -11,39 +11,54 @@ interface Post {
 }
 
 interface PostState {
-    postsListReady: boolean;
+  postsListReady: boolean;
   posts: {[id: string]: Post};
 }
 
-const postsState: PostState = reactive({
-  postsListReady: false,
-  posts: {}
-})
+const postsState: PostState[] = [];
 
 app.service('posts').on('created', async (post: Post) => {
   console.log('POSTS EVENT created', post)
-  postsState.posts[post.id] = post
+  postsState[post.topicId].posts[post.id] = post
 })
 
 app.service('posts').on('patched', (post: Post) => {
   console.log('POSTS EVENT patched', post)
-  postsState.posts[post.id] = post
+  postsState[post.topicId].posts[post.id] = post
 })
 
 app.service('posts').on('removed', (post: Post) => {
   console.log('POSTS EVENT removed', post)
-  delete postsState.posts[post.id]
+  delete postsState[post.topicId].posts[post.id]
 })
 
+const postStateReady = topic => {
+  if(!postsState[topic]) {
+    postsState[topic] = reactive({
+      postsListReady: false,
+      posts: {}
+    });
+  }
+  return postsState[topic].postsListReady;
+
+}
+
+
 const postList = topic => computed(() => {
-  if (!postsState.postsListReady) {
-    app.service('posts').find({topic}).then((list: Post[]) => {
-      list.forEach(post => { postsState.posts[post.id] = post })
-      postsState.postsListReady = true
+  if(!postStateReady(topic)) {
+    app.service('posts').find({
+      query: {
+        topicId: topic
+      }
+    }).then((list: Post[]) => {
+      list.forEach(post => {
+        postsState[topic].posts[post.id] = post
+      })
+      postsState[topic].postsListReady = true
     })
     return []
   }
-  return Object.values(postsState.posts)
+  return Object.values(postsState[topic].posts)
 })
 
 const addPost = (text: string, topicId: number, authorId: number) => {

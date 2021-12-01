@@ -1,31 +1,37 @@
 <template>
+  <AppBar></AppBar>
+  <div id="main">
+    <router-view/>
+  </div>
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/auth">Authentification</router-link> |
     <router-link to="/chat/0">Chat</router-link>
   </div>
-  <router-view/>
 </template>
 
+<script>
+import AppBar from '@/components/AppBar.vue';
+
+export default {
+  components: {
+    AppBar
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+a {
+  text-decoration: none;
 }
-
-#nav {
-  height: 10vh;
+body {
+  margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  background-color: #F2F2F2;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#main {
+    max-width: 974px;
+    margin: auto;
+    margin-top: 8em;
 }
 </style>

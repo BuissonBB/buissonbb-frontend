@@ -43,7 +43,6 @@ const postStateReady = topic => {
 
 }
 
-
 const postList = topic => computed(() => {
   if(!postStateReady(topic)) {
     app.service('posts').find({
@@ -69,8 +68,12 @@ const deletePost = (id: number) => {
   app.service('posts').remove(id)
 }
 
+const postsCount = (topicId: number) => {
+  return postList(topicId).value.length;
+}
+
 export function usePosts () {
   return {
-    postList, addPost, deletePost
+    postList, addPost, deletePost, postsCount
   }
 }

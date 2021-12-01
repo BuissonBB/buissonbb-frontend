@@ -1,6 +1,9 @@
-import { reactive, computed } from 'vue'
+import {reactive, computed, UnwrapRef, ComputedRef} from 'vue'
 
 import app from '@/feathers-client'
+import CategoryModel from "@/models/CategoryModel";
+import topic from "@/views/Topic.vue";
+import {protocol} from "socket.io-client";
 
 export default interface Topic {
   id : number;
@@ -38,7 +41,6 @@ const topicStateReady = category => {
     });
   }
   return topicsState[category].topicsListReady;
-
 }
 
 const topicList = category => computed(() => {
@@ -56,12 +58,20 @@ const topicList = category => computed(() => {
   return Object.values(topicsState[category].topics)
 })
 
-const addTopic = (subject: string) => {
-  app.service('topics').create({ subject })
+const addTopic = (subject: string, categoryId: number, authorId: number) => {
+  app.service('topics').create({ subject: subject, categoryId: categoryId, authorId: authorId })
+}
+
+const deleteTopic = (id: number) => {
+  app.service('topics').remove(id)
+}
+
+const topicsCount = (categoryId: number) => {
+  return topicList(categoryId).value.length;
 }
 
 export function useTopics() {
   return {
-    topicList, addTopic
+    topicList, addTopic, deleteTopic, topicsCount
   }
 }

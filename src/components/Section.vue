@@ -6,7 +6,10 @@
               <router-link v-for="category in categories" :key="category.name" :to="{ name: 'Category', params: { category: category.id } }">
                 <!--- COMPONENT CATEGORY ICI -->
                 <a class="category" href="#">
-                    <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>{{ category.name }}
+                  <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>
+                  {{ category.name }}
+                  | {{ topicsCount(category.id) }} Topics
+                  | {{ totalPostsCount(category.id) }} Posts
                 </a>
                 <!--- FIN COMPONENT -->
               </router-link>
@@ -17,6 +20,7 @@
 <script lang="ts">
 
 import { asset } from '@/settings'
+import {useTopics} from "@/use/useTopics";
 
 export default {
     methods: {
@@ -28,6 +32,14 @@ export default {
         icon: String,
         color: String,
         categories: Array
+    },
+    setup(){
+      const { topicsCount, totalPostsCount } = useTopics();
+
+      return{
+        topicsCount,
+        totalPostsCount
+      }
     }
 };
 </script>

@@ -1,16 +1,14 @@
 <template>
-  <h1>TOPIC {{ $route.params.topic }}</h1>
-  <p>{{ postList }}</p>
-  <p>{{ topic.subject}}</p>
+  <h1>TOPIC NAME A afficher !</h1>
 
-  <br/>
-  <span>LISTE DES POSTS</span>
-  <br/>
-  <br/>
+  <h2>LISTE DES POSTS</h2>
 
     <!--- COMPONENT POST ICI -->
     <p class="post" v-for="post in postList" :key="post.id">
-      POST ID : {{ post.id }} : {{ post.text }}
+      >>>>>  {{ post.text }}
+      <button style="margin-left: 20px" @click="deletePost(post.id)">
+        DELETE
+      </button>
     </p>
     <br/>
 
@@ -27,10 +25,10 @@
 
 <script lang="ts">
 import {defineComponent, ref} from "vue";
-import { useForumConfig } from "@/use/useForumConfig";
 import { useRoute } from "vue-router";
 import { asset } from "@/settings";
 import {usePosts} from "@/use/usePosts";
+import {useTopics} from "@/use/useTopics";
 
 export default defineComponent({
   methods: {
@@ -40,7 +38,6 @@ export default defineComponent({
     const route = useRoute();
 
     const { postList, addPost, deletePost } = usePosts();
-    const { category } = useForumConfig();
 
     const messageText = ref('')
 
@@ -63,8 +60,8 @@ export default defineComponent({
 
     return {
       postList: postList(route.params.topic),
-      topic: category(route.params.topic),
       sendPost,
+      deletePost,
       isInputEmpty,
       messageText,
     };

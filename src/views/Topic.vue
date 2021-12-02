@@ -1,5 +1,5 @@
 <template>
-  <h1>TOPIC NAME A afficher !</h1>
+  <h1>{{ topic.subject }}</h1>
 
   <h2>LISTE DES POSTS</h2>
 
@@ -37,6 +37,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
 
+    const { getTopic } = useTopics();
     const { postList, addPost, deletePost } = usePosts();
 
     const messageText = ref('')
@@ -60,6 +61,7 @@ export default defineComponent({
 
     return {
       postList: postList(route.params.topic),
+      topic: getTopic(route.params.topic),
       sendPost,
       deletePost,
       isInputEmpty,

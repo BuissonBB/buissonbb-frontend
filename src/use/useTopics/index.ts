@@ -12,52 +12,83 @@ export default interface Topic {
   categoryId: number;
 }
 
-interface TopicState {
-  topicsListReady: boolean;
+interface CategoryState {
+  categoryReady: boolean;
   topics: {[id: number]: Topic};
 }
+
+interface TopicState extends Topic{
+  topicReady: boolean;
+}
+
+const categoriesState: CategoryState[] = [];
 
 const topicsState: TopicState[] = [];
 
 app.service('topics').on('created', async (topic: Topic) => {
   console.log('TOPICS EVENT created', topic)
-  topicsState[topic.categoryId].topics[topic.id] = topic
+  categoriesState[topic.categoryId].topics[topic.id] = topic
 })
 
 app.service('topics').on('patched', (topic: Topic) => {
   console.log('TOPICS EVENT patched', topic)
-  topicsState[topic.categoryId].topics[topic.id] = topic
+  categoriesState[topic.categoryId].topics[topic.id] = topic
 })
 
 app.service('topics').on('removed', (topic: Topic) => {
   console.log('TOPICS EVENT removed', topic)
-  delete topicsState[topic.categoryId].topics[topic.id]
+  delete categoriesState[topic.categoryId].topics[topic.id]
 })
 
-const topicStateReady = category => {
-  if(!topicsState[category]) {
-    topicsState[category] = reactive({
-      topicsListReady: false,
+const categoryReady = category => {
+  if(!categoriesState[category]) {
+    categoriesState[category] = reactive({
+      categoryReady: false,
       topics: {}
     });
   }
-  return topicsState[category].topicsListReady;
+  return categoriesState[category].categoryReady;
+}
+
+const topicReady = topicId => {
+  if(!topicsState[topicId]) {
+    topicsState[topicId] = reactive({
+      topicReady: false,
+      id: -1,
+      subject: "",
+      categoryId: -1
+    });
+  }
+  return topicsState[topicId].topicReady;
 }
 
 const topicList = category => computed(() => {
-  if(!topicStateReady(category)) {
+  if(!categoryReady(category)) {
     app.service('topics').find({
       query: {
         categoryId: category
       }
     }).then((list: Topic[]) => {
-      list.forEach(topic => { topicsState[category].topics[topic.id] = topic })
-      topicsState[category].topicsListReady = true
+      list.forEach(topic => { categoriesState[category].topics[topic.id] = topic })
+      categoriesState[category].categoryReady = true
     })
     return []
   }
-  return Object.values(topicsState[category].topics)
+  return Object.values(categoriesState[category].topics)
 })
+
+const getTopic = topicId => computed(() => {
+  if(!topicReady(topicId)) {
+    app.service('topics').get(topicId).then(topic => {
+      topicsState[topicId].categoryId = topic.categoryId;
+      topicsState[topicId].id = topic.id;
+      topicsState[topicId].subject = topic.subject;
+      topicsState[topicId].topicReady = true;
+    })
+    return {};
+  }
+  return topicsState[topicId];
+});
 
 const addTopic = (subject: string, categoryId: number, authorId: number) => {
   app.service('topics').create({ subject: subject, categoryId: categoryId, authorId: authorId })
@@ -80,6 +111,6 @@ const totalPostsCount = (categoryId: number) => {
 
 export function useTopics() {
   return {
-    topicList, addTopic, deleteTopic, topicsCount, totalPostsCount
+    topicList, getTopic, addTopic, deleteTopic, topicsCount, totalPostsCount
   }
 }

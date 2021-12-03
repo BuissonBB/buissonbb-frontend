@@ -3,7 +3,7 @@
 
   <h2>LISTE DES POSTS</h2>
 
-  <Post v-for="post in postList" :key="post.id" :post="post" :user="{name: 'diego', color: 'red', rank: 'UwU'}"></Post>
+  <Post v-for="post in postList" :key="post.id" :post="post" :user="{name: 'diego', color: '#EB5757', rank: 'UwU'}"></Post>
 
   <br/>
 

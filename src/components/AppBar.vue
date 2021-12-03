@@ -3,9 +3,13 @@
         <router-link :to="{ name: 'Home'}">
             <a href="#" id="title-link"><h1 id="title">{{ title }}</h1></a>
         </router-link>
-        <div id="login-buttons">
-            <a href="#">Sign in</a>
-            <a href="#">Sign up</a>
+        <div id="auth-buttons">
+            <router-link :to="{ name: 'SignIn'}">
+                <a href="#" class="auth-button">Sign in</a>
+            </router-link>
+            <router-link :to="{ name: 'SignUp'}">
+                <a href="#" class="auth-button">Sign up</a>
+            </router-link>
         </div>
     </header>
 </template>
@@ -55,7 +59,7 @@ export default defineComponent({
     background-position: 100%;
 }
 
-#login-buttons {
+#auth-buttons {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -66,7 +70,7 @@ export default defineComponent({
     font-size: 18px;
 }
 
-#login-buttons > a {
+.auth-button {
     /* Centrer le texte verticallement : */
     height: 66px;
     line-height: 66px;
@@ -78,7 +82,7 @@ export default defineComponent({
     color: white;
 }
 
-#login-buttons > a::after {
+.auth-button::after {
     content: "";
     height: 3px;
     background-color: white;
@@ -90,7 +94,7 @@ export default defineComponent({
     border-radius: 5px;
 }
 
-#login-buttons > a:hover::after {
+.auth-button:hover::after {
     left: 40%;
     right: 40%;
 }

@@ -2,7 +2,7 @@
   <div class="content">
     <div class="chat">
       <ul>
-        <li v-for="message in messagesList">
+        <li v-for="message in messagesList" :key="message.id">
           <Message :msgText=message.text :msgId=message.id :deleteMessageFunction=deleteMessage></Message>
         </li>
       </ul>

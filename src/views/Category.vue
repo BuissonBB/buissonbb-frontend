@@ -16,7 +16,7 @@
   <h2>LISTE DES TOPICS</h2>
 
     <!--- COMPONENT TOPIC ICI -->
-    <div style="margin: 30px" v-for="topic in topicList">
+    <div style="margin: 30px" v-for="topic in topicList" :key="topic.id">
       <router-link :key="topic.subject" :to="{ name: 'Topic', params: { topic: topic.id } }">
         <a class="topic">
           {{ topic.subject }} | {{ postsCount(topic.id) }} posts

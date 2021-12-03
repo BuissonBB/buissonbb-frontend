@@ -4,6 +4,7 @@
       <h1 id="head-title">Sign In <img src="@/assets/signin.svg" id="head-icon"/></h1>
     </div>
     <div id="form-main">
+      <div class="left-border" style="background: #27AE60;"></div>
       <form>
         <div class="form-block">
           <label for="email">E-mail</label>
@@ -17,8 +18,8 @@
           <label for="email">Remember Me</label>
           <input type="checkbox" id="remember" name="remember"/>
         </div>
-        <div>
-          <button type="submit">Sign In</button>
+        <div class="centered">
+          <button type="submit">Sign in</button>
         </div>
       </form>
     </div>
@@ -31,15 +32,5 @@ import { defineComponent } from "vue";
 export default defineComponent({});
 </script>
 
-<style scoped>
-  #head-title {
-    color: #333;
-    text-transform: uppercase;
-    font-size: 40px;
-  }
-  #head-icon {
-    vertical-align: bottom;
-    margin-left: .5em;
-    position: relative;
-  }
+<style scoped src="@/assets/styles/sign.css">
 </style>

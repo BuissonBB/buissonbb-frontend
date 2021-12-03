@@ -2,17 +2,17 @@
     <div class="section">
         <h2 class="section-title">{{ name }}<img :src="asset(icon)" class="section-icon" /></h2>
         <div class="categories">
-            <div class="categories-border" :style="`background: ${color};`"></div>
-              <router-link v-for="category in categories" :key="category.name" :to="{ name: 'Category', params: { category: category.id } }">
-                <!--- COMPONENT CATEGORY ICI -->
-                <a class="category" href="#">
-                  <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>
-                  {{ category.name }}
-                  | {{ topicsCount(category.id) }} Topics
-                  | {{ totalPostsCount(category.id) }} Posts
-                </a>
-                <!--- FIN COMPONENT -->
-              </router-link>
+            <div class="left-border" :style="`background: ${color};`"></div>
+            <router-link v-for="category in categories" :key="category.name" :to="{ name: 'Category', params: { category: category.id } }">
+            <!--- COMPONENT CATEGORY ICI -->
+            <a class="category" href="#">
+                <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>
+                {{ category.name }}
+                | {{ topicsCount(category.id) }} Topics
+                | {{ totalPostsCount(category.id) }} Posts
+            </a>
+            <!--- FIN COMPONENT -->
+            </router-link>
         </div>
     </div>
 </template>
@@ -67,15 +67,6 @@ export default {
     background: white;
     position: relative;
     border-radius: 8px;
-}
-
-.categories-border {
-    position: absolute;
-    left: 0px;
-    width: 13px;
-    top: -10px;
-    bottom: -10px;
-    border-radius: 10px 0 10px 0;
 }
 
 .category {

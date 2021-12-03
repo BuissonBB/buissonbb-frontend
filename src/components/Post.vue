@@ -1,39 +1,50 @@
 <template>
     <div class="message">
         <div class="user-meta">
-            <div class="user-color" :style="`background: ${user.color};`"></div>
-            <div class="user-profile-picture" :style="`background: ${user.picture};`">
+            <div class="user-color" :style="`background: ${user.color}`"></div>
+            <div class="user-profile-picture" :style="`background: cyan;`">
 
             </div>
             <div class="user-info">
-                <p class="user-name">{{ user.name }}</p>
-                <p class="user-rank">{{ user.rank }}</p>
+              <p class="user-name">{{ user.name }}</p>
+              <p class="user-rank">{{ user.rank }}</p>
             </div>
         </div>
         <div class="message-main">
             <div class="message-meta">
-                <span class="message-publish-date">{{ message.publishDate }}</span>
-                <span class="message-edit-date">{{ message.editDate }}</span>
+
+              <span class="message-publish-date">{{ post.created_date }}</span>
+              <span class="message-edit-date">{{ post.modified_date }}</span>
                 <img class="message-settings" src="@/assets/settings.svg" />
             </div>
             <div class="message-content">
-                {{ message.content }}
+                {{ post.text }}
             </div>
+        </div>
+        <div id="delete-image">
+          <img id="delete-button" @click="deletePost(post.id)" src="../../src/assets/trash.png"/>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import MessageModel from '@/models/MessageModel';
-import UserModel from '@/models/UserModel';
 
-export default defineComponent({
+import {usePosts} from "@/use/usePosts";
+
+export default {
     props: {
-        message: MessageModel,
-        user: UserModel
+        post: Object,
+        user: Object
+    },
+
+    setup() {
+      const { deletePost } = usePosts();
+
+      return {
+        deletePost
+      }
     }
-});
+};
 </script>
 
 <style scoped>
@@ -91,6 +102,7 @@ export default defineComponent({
 
 .message {
     margin-bottom: 1.5em;
+    position: relative
 }
 
 .message-main {
@@ -122,4 +134,24 @@ export default defineComponent({
 .message-meta > p {
     margin: 0;
 }
+
+#delete-button {
+  height: 25px;
+  cursor: pointer;
+  text-align: right;
+  opacity: 0.5;
+}
+
+#delete-button:hover {
+  opacity: 1.0;
+}
+
+#delete-image {
+  text-align: right;
+  right: 10px;
+  top: 10px;
+  position: absolute;
+  cursor: pointer;
+}
+
 </style>

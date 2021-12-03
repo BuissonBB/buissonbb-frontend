@@ -1,7 +1,7 @@
 <template>
   <div class="message">
     <p class="bubble">{{ msgText }}
-        <img @click="deleteMessageFunction(msgId)" src="../../public/img/icons/trash.png"/>
+        <img @click="deleteMessageFunction(msgId)" src="src/assets/trash.png"/>
     </p>
   </div>
 </template>
@@ -44,7 +44,6 @@ p {
 }
 
 img {
-    height: 25px;
     height: 25px;
     cursor: pointer;
 }

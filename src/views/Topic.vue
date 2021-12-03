@@ -3,16 +3,10 @@
 
   <h2>LISTE DES POSTS</h2>
 
-    <!--- COMPONENT POST ICI -->
-    <p class="post" v-for="post in postList" :key="post.id">
-      >>>>>  {{ post.text }}
-      <button style="margin-left: 20px" @click="deletePost(post.id)">
-        DELETE
-      </button>
-    </p>
-    <br/>
+  <Post v-for="post in postList" :key="post.id" :post="post" :user="{name: 'diego', color: 'red', rank: 'UwU'}"></Post>
 
-    <!--- FIN COMPONENT -->
+  <br/>
+
   <div class="chatbar">
     <hr/>
     <label>
@@ -25,12 +19,17 @@
 
 <script lang="ts">
 import {defineComponent, ref} from "vue";
-import { useRoute } from "vue-router";
+import {useRoute} from "vue-router";
 import { asset } from "@/settings";
 import {usePosts} from "@/use/usePosts";
 import {useTopics} from "@/use/useTopics";
+import Post from "@/components/Post.vue";
 
 export default defineComponent({
+  components: {
+    Post
+  },
+
   methods: {
     asset,
   },
@@ -38,7 +37,7 @@ export default defineComponent({
     const route = useRoute();
 
     const { getTopic } = useTopics();
-    const { postList, addPost, deletePost } = usePosts();
+    const { postList, addPost } = usePosts();
 
     const messageText = ref('')
 
@@ -63,7 +62,6 @@ export default defineComponent({
       postList: postList(route.params.topic),
       topic: getTopic(route.params.topic),
       sendPost,
-      deletePost,
       isInputEmpty,
       messageText,
     };

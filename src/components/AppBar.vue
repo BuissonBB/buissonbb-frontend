@@ -3,7 +3,7 @@
         <router-link :to="{ name: 'Home'}">
             <a href="#" id="title-link"><h1 id="title">{{ title }}</h1></a>
         </router-link>
-        <div id="auth-buttons">
+        <div id="auth-buttons" v-if="!currentUser">
             <router-link :to="{ name: 'SignIn'}">
                 <a href="#" class="auth-button">Sign in</a>
             </router-link>
@@ -11,19 +11,31 @@
                 <a href="#" class="auth-button">Sign up</a>
             </router-link>
         </div>
+        <div id="auth-buttons" v-if="currentUser">
+            <a href="#" class="auth-button">Hello {{ currentUser.username }} !</a>
+        </div>
     </header>
 </template>
 
 <script lang="ts">
 import { useForumConfig } from '@/use/useForumConfig';
-import { defineComponent } from '@vue/runtime-core'
+import { defineComponent, ref } from "vue";
+import app from '@/feathers-client';
 
 export default defineComponent({
     setup() {
         const { title, colors } = useForumConfig();
+        const currentUser = ref(null);
+
+        app.reAuthenticate().then(e => {
+            console.log("re auth", e)
+            currentUser.value = e.user;
+        });
+
         return {
             title,
-            colors
+            colors,
+            currentUser
         };
     }
 });

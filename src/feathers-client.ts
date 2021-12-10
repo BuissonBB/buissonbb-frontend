@@ -2,7 +2,7 @@
 // Feathers configuration
 import io from 'socket.io-client'
 
-import feathers from '@feathersjs/client'
+import feathers, { authentication } from '@feathersjs/client'
 import { BACKEND_URL } from './settings'
 
 const app = feathers()
@@ -12,6 +12,10 @@ const socket = process.env.NODE_ENV === 'development' ? io() : io(BACKEND_URL)
 
 app.configure(feathers.socketio(socket))
 
-app.configure(feathers.authentication({ storage: window.sessionStorage }))
+app.configure(authentication({
+    storage: window.localStorage,
+    storageKey: 'access-token',
+    path: '/authentication'
+}));
 
 export default app

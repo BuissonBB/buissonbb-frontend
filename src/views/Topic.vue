@@ -8,7 +8,7 @@
   <Post v-for="post in postList" :key="post.id" :post="post" :user="post.user"></Post>
 
   <div v-if="postList.length === 0" id="no-posts" style="margin-top: 5em">
-    There is not post in this topic. Be the first to send one!
+    There is no post in this topic. Be the first to send one!
   </div>
 
   <br/>

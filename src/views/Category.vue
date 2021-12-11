@@ -28,13 +28,11 @@
 
     <TopicLink v-for="topic in topicList" :key="topic.id" :topic="topic" :user="{name: 'Thomas', color: '#3B585A', rank: 'Zouz'}"></TopicLink>
 
-  </div>
+    <div v-if="topicList.length === 0" id="no-topics" style="margin-top: 3em">
+      There are not topic in this category. Be the first to open one!
+    </div>
 
-  <div v-if="topicList.length === 0" id="no-topics" style="margin-top: 3em">
-    There are not topic in this category. Be the first to open one!
   </div>
-
-  <!--- FIN COMPONENT -->
 </template>
 
 <script lang="ts">

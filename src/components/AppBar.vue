@@ -3,23 +3,46 @@
         <router-link :to="{ name: 'Home'}">
             <a href="#" id="title-link"><h1 id="title">{{ title }}</h1></a>
         </router-link>
-        <div id="login-buttons">
-            <a href="#">Sign in</a>
-            <a href="#">Sign up</a>
+        <div id="auth-buttons" v-if="!currentUser">
+            <router-link :to="{ name: 'SignIn'}">
+                <a href="#" class="auth-button">Sign in</a>
+            </router-link>
+            <router-link :to="{ name: 'SignUp'}">
+                <a href="#" class="auth-button">Sign up</a>
+            </router-link>
+        </div>
+        <div id="auth-buttons" v-if="currentUser">
+            <a href="#" class="auth-button">Profile: {{ currentUser.username }}</a>
+            <a href="#" class="auth-button" @click="signout"><img src="@/assets/signout.svg" id="signout-icon" /></a>
         </div>
     </header>
 </template>
 
 <script lang="ts">
 import { useForumConfig } from '@/use/useForumConfig';
-import { defineComponent } from '@vue/runtime-core'
+import { defineComponent, ref } from "vue";
+import app from '@/feathers-client';
 
 export default defineComponent({
+    methods: {
+        signout() {
+            console.log("signout")
+            localStorage.removeItem('access-token');
+            app.emit('authenticated', null);
+        }
+    },
     setup() {
         const { title, colors } = useForumConfig();
+        const currentUser = ref(null);
+
+        app.addListener('authenticated', (user) => {
+            currentUser.value = user;
+        });
+
         return {
             title,
-            colors
+            colors,
+            currentUser
         };
     }
 });
@@ -55,7 +78,7 @@ export default defineComponent({
     background-position: 100%;
 }
 
-#login-buttons {
+#auth-buttons {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -66,7 +89,7 @@ export default defineComponent({
     font-size: 18px;
 }
 
-#login-buttons > a {
+.auth-button {
     /* Centrer le texte verticallement : */
     height: 66px;
     line-height: 66px;
@@ -78,7 +101,7 @@ export default defineComponent({
     color: white;
 }
 
-#login-buttons > a::after {
+.auth-button::after {
     content: "";
     height: 3px;
     background-color: white;
@@ -90,8 +113,14 @@ export default defineComponent({
     border-radius: 5px;
 }
 
-#login-buttons > a:hover::after {
+.auth-button:hover::after {
     left: 40%;
     right: 40%;
+}
+#signout-icon {
+    vertical-align: middle;
+    width: 30px;
+    position: relative;
+    bottom: 2px;
 }
 </style>

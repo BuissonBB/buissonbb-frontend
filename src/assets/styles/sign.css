@@ -1,0 +1,63 @@
+#head-title {
+    color: #333;
+    text-transform: uppercase;
+    font-size: 40px;
+}
+#head-icon {
+    vertical-align: bottom;
+    margin-left: .5em;
+    position: relative;
+}
+
+#form {
+    max-width: 500px;
+    margin: auto;
+}
+
+#form-main {
+    background: white;
+    padding: 35px 45px;
+    position: relative;
+    border-radius: 6px;
+}
+
+form label {
+    color: #AAA;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 8px;
+}
+
+.form-block, .form-inline {
+    margin-bottom: 31px;
+}
+
+.form-block label, .form-block input {
+    display: block;
+    width: 100%;
+}
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-left: 20px;
+    border: 1px solid #eee;
+}
+.form-block input {
+    border: 1px solid #EEE;
+    border-radius: 8px;
+    height: 30px;
+}
+
+#remember {
+    vertical-align: bottom;
+}
+
+.centered {
+    text-align: center;
+}
+
+.error {
+    color: red;
+}

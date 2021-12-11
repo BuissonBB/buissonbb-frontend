@@ -1,9 +1,9 @@
 <template>
   <h1>
-    <img :src="asset(category.icon)" style="margin-right: 30px"/>
-    Forum {{ category.name }}
+    <img :src="category && asset(category.icon)" style="margin-right: 30px"/>
+    Forum {{ category && category.name }}
   </h1>
-  <h3>{{ category.description }}</h3>
+  <h3>{{ category && category.description }}</h3>
 
   <div class="new-chat">
     <label>
@@ -16,7 +16,7 @@
   <h2>LISTE DES TOPICS</h2>
 
     <!--- COMPONENT TOPIC ICI -->
-    <div style="margin: 30px" v-for="topic in topicList">
+    <div style="margin: 30px" v-for="topic in topicList" :key="topic.id">
       <router-link :key="topic.subject" :to="{ name: 'Topic', params: { topic: topic.id } }">
         <a class="topic">
           {{ topic.subject }} | {{ postsCount(topic.id) }} posts

@@ -64,6 +64,6 @@ export function useForumConfig() {
     title,
     colors,
     structure,
-    category: category
+    category
   };
 };

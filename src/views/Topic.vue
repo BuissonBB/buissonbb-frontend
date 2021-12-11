@@ -72,6 +72,17 @@ export default defineComponent({
 </script>
 <style>
 
+#topic-subject {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 47px;
+  text-transform: uppercase;
+  margin-top: -20px;
+  color: #333333;
+}
+
 .chat-bar {
   background-color: #EAEAEA;
   width: 100%;

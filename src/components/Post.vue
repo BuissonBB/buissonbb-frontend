@@ -39,8 +39,6 @@ import moment from "moment";
 import app from "@/feathers-client";
 import { defineComponent, ref } from "vue";
 
-moment.locale("fr");
-
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -178,6 +176,7 @@ export default defineComponent({
 }
 
 .message-content {
+  padding-left: 12px;
   margin-top: 5px;
 }
 

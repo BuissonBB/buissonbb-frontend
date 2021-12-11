@@ -17,8 +17,6 @@ import { usePosts } from "@/use/usePosts";
 import { useTopics } from "@/use/useTopics"
 import moment from "moment";
 
-moment.locale('fr');
-
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

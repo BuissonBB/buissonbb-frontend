@@ -50,7 +50,6 @@ export default defineComponent({
       console.log("login", this.loginForm)
 
       try {
-        await app.logout().catch();
         const result = await app.authenticate({
           strategy: "local",
           email: this.loginForm.email,

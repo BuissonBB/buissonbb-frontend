@@ -1,9 +1,9 @@
 <template>
   <h1>
-    <img :src="asset(category.icon)" style="margin-right: 30px"/>
-    Forum {{ category.name }}
+    <img :src="category && asset(category.icon)" style="margin-right: 30px"/>
+    Forum {{ category && category.name }}
   </h1>
-  <h3>{{ category.description }}</h3>
+  <h3>{{ category && category.description }}</h3>
 
   <div class="new-chat">
     <label>

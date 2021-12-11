@@ -13,7 +13,7 @@
         </div>
         <div id="auth-buttons" v-if="currentUser">
             <a href="#" class="auth-button">Profile: {{ currentUser.username }}</a>
-            <a href="#" class="auth-button"><img src="@/assets/signout.svg" id="signout-icon" @click="signout"/></a>
+            <a href="#" class="auth-button" @click="signout"><img src="@/assets/signout.svg" id="signout-icon" /></a>
         </div>
     </header>
 </template>
@@ -25,8 +25,9 @@ import app from '@/feathers-client';
 
 export default defineComponent({
     methods: {
-        async signout() {
-            await app.logout();
+        signout() {
+            console.log("signout")
+            localStorage.removeItem('access-token');
             app.emit('authenticated', null);
         }
     },

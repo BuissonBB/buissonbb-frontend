@@ -1,7 +1,6 @@
 import { reactive, computed } from 'vue'
 
 import app from '@/feathers-client'
-import Topic from "@/use/useTopics";
 
 interface Post {
   id : number;
@@ -65,7 +64,7 @@ const postList = topic => computed(() => {
 })
 
 const addPost = (text: string, topicId: number, authorId: number) => {
-  app.service('posts').create({ text, topicId, authorId })
+  return app.service('posts').create({ text, topicId, authorId })
 }
 
 const deletePost = (id: number) => {

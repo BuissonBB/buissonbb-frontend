@@ -1,6 +1,8 @@
 <template>
   <div id="title-background"></div>
 
+  <img class="return-icon" src="@/assets/arrow.svg" @click="$router.go(-1)"/>
+
   <h2 id="topic-subject">{{ topic.subject }}</h2>
 
   <Post v-for="post in postList" :key="post.id" :post="post" :user="post.user"></Post>
@@ -11,12 +13,16 @@
 
   <br/>
 
-  <div class="chat-bar">
+  <div class="chat-bar" v-if="currentUser">
     <label>
       <input type="text" placeholder="Write a message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="sendPost" v-model="messageText"/>
     </label>
     <button @click=sendPost id="send" disabled>Send</button>
   </div>
+  <div class="chat-bar" v-else>
+    <router-link :to="{ name: 'SignIn'}" id="sign-in-redirect">Please sign in to post messages!</router-link>
+  </div>
+
 </template>
 
 <script lang="ts">
@@ -26,6 +32,7 @@ import { asset } from "@/settings";
 import {usePosts} from "@/use/usePosts";
 import {useTopics} from "@/use/useTopics";
 import Post from "@/components/Post.vue";
+import app from "@/feathers-client";
 
 export default defineComponent({
   components: {
@@ -41,12 +48,23 @@ export default defineComponent({
     const { getTopic } = useTopics();
     const { postList, addPost } = usePosts();
 
+    const currentUser = ref(null);
+
+    const auth = app.get('authentication');
+    auth && auth.then(auth => currentUser.value = auth.user);
+
+    app.addListener("authenticated", (user) => {
+      currentUser.value = user;
+    });
+
     const messageText = ref('')
 
     function sendPost() {
       const inputChat = document.getElementById("inputChat") as HTMLInputElement;
       if (inputChat.value !== "") {
-        addPost(messageText.value, Number(route.params.topic), 1);
+        addPost(messageText.value, Number(route.params.topic), 1).then(() => {
+          window.scrollTo(0,document.body.scrollHeight);
+        });
         messageText.value = '';
         inputChat.focus();
         const sendButton = document.getElementById("send") as HTMLInputElement;
@@ -66,13 +84,25 @@ export default defineComponent({
       sendPost,
       isInputEmpty,
       messageText,
+      currentUser
     };
   },
 });
 </script>
 <style>
 
-.chat-bar{
+#topic-subject {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 47px;
+  text-transform: uppercase;
+  margin-top: -20px;
+  color: #333333;
+}
+
+.chat-bar {
   background-color: #EAEAEA;
   width: 100%;
   position: fixed;
@@ -83,7 +113,7 @@ export default defineComponent({
   text-align: center;
 }
 
-#inputChat{
+#inputChat {
   width: 50%;
   height: 40px;
   font-size: 18px;
@@ -94,14 +124,32 @@ export default defineComponent({
   padding-right: 1%;
 }
 
+#send:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 #title-background{
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
   width: 100%;
-  height: 250px;
+  height: 235px;
   background-color: #EAEAEA;
 }
 
+#sign-in-redirect {
+  color: #42a5f5;
+  text-decoration: none;
+  font-family: Roboto;
+  font-size: 20px;
+  transition: all .5s;
+}
+
+#sign-in-redirect:hover {
+  cursor: pointer;
+  color: #3289cd;
+  margin-left: 30px;
+}
 </style>

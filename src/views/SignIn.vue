@@ -20,7 +20,11 @@
           <p class="error">{{ signinForm.error ? "Error: "+signinForm.error : "" }}</p>
         </div>
         <div class="centered">
-          <button type="submit">Sign in</button>
+          <button type="submit" id="sign-in-button">Sign in</button>
+          <br/><br/>
+          <router-link :to="{ name: 'SignUp'}" id="sign-up-redirect" style="color:black;">
+            Don't have an account yet? Sign up.
+          </router-link>
         </div>
       </form>
     </div>
@@ -68,5 +72,4 @@ export default defineComponent({
 </script>
 
 <style scoped src="@/assets/styles/sign.css">
-
 </style>

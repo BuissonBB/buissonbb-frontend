@@ -8,7 +8,7 @@
       <div class="user-profile-picture" :style="`background: #eee;`"></div>
       <div class="user-info">
         <p class="user-name">{{ user.username }}</p>
-        <p class="user-rank">{{ user.admin ? "Admin" : "Membre" }}</p>
+        <p class="user-rank">{{ user.admin ? "Admin" : "Member" }}</p>
       </div>
     </div>
     <div class="message-main">
@@ -38,8 +38,6 @@ import { usePosts } from "@/use/usePosts";
 import moment from "moment";
 import app from "@/feathers-client";
 import { defineComponent, ref } from "vue";
-
-moment.locale("fr");
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -79,7 +77,6 @@ export default defineComponent({
 
     app.addListener("authenticated", (user) => {
       currentUser.value = user;
-      console.log("user:", user);
     });
 
     return {
@@ -170,9 +167,15 @@ export default defineComponent({
   top: 13px;
   right: 0px;
   cursor: pointer;
+  opacity: 0.7;
+}
+
+.message-settings:hover {
+  opacity: 1;
 }
 
 .message-content {
+  padding-left: 12px;
   margin-top: 5px;
 }
 

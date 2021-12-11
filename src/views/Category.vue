@@ -1,44 +1,56 @@
 <template>
-  <h1>
-    <img :src="category && asset(category.icon)" style="margin-right: 30px"/>
-    Forum {{ category && category.name }}
-  </h1>
-  <h3>{{ category && category.description }}</h3>
+  <h2 id="category-title">
+    {{ category && category.name }}
+    <img
+      id="category-icon"
+      :src="category && asset(category.icon)"
+      style="margin-right: 30px"
+    />
+  </h2>
+  <p id="category-description">{{ category && category.description }}</p>
 
-  <div class="new-chat">
-    <label>
-      New Topic title
-      <input class="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
-    </label>
-    <button @click="addTopic(newTopicTitle, route.params.category, 1)" class="new-chat-button">Create Topic</button>
+  <div class="new-chat" style="margin-top: 3em">
+    <button @click="addTopic(newTopicTitle, route.params.category, 1)">
+      OPEN NEW TOPIC
+    </button>
   </div>
 
-  <h2>LISTE DES TOPICS</h2>
+  <!--- COMPONENT TOPIC ICI -->
 
-    <!--- COMPONENT TOPIC ICI -->
-    <div style="margin: 30px" v-for="topic in topicList" :key="topic.id">
-      <router-link :key="topic.subject" :to="{ name: 'Topic', params: { topic: topic.id } }">
-        <a class="topic">
-          {{ topic.subject }} | {{ postsCount(topic.id) }} posts
-        </a>
-      </router-link>
-      <button style="margin-left: 20px" @click="deleteTopic(topic.id)">
-        DELETE
-      </button>
-    </div>
-    <!--- FIN COMPONENT -->
+  <div class="categories" style="margin-top: 3em" v-if="topicList.length > 0">
+    <div
+      class="left-border"
+      :style="`background: ${category.section.color};`"
+    ></div>
+    <router-link
+      v-for="topic in topicList"
+      :key="topic.id"
+      :to="{ name: 'Topic', params: { topic: topic.id } }"
+    >
+      <!--- COMPONENT CATEGORY ICI -->
+      <a class="category" href="#" style="height: 40px; line-height: 40px">
+        {{ topic.subject }} | {{ postsCount(topic.id) }} posts
+      </a>
+      <!--- FIN COMPONENT -->
+    </router-link>
+  </div>
 
+  <div v-if="topicList.length === 0" id="no-topics" style="margin-top: 3em">
+    There are not topic in this category. Be the first to open one!
+  </div>
+
+  <!--- FIN COMPONENT -->
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import { defineComponent, ref } from "vue";
 
 import { useTopics } from "@/use/useTopics";
 import { useForumConfig } from "@/use/useForumConfig";
 
 import { useRoute } from "vue-router";
 import { asset } from "@/settings";
-import {usePosts} from "@/use/usePosts";
+import { usePosts } from "@/use/usePosts";
 
 export default defineComponent({
   methods: {
@@ -47,7 +59,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
 
-    const newTopicTitle = ref('')
+    const newTopicTitle = ref("");
 
     const { topicList, addTopic, deleteTopic } = useTopics();
     const { category } = useForumConfig();
@@ -66,7 +78,25 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
+#category-title {
+  text-transform: uppercase;
+  font-size: 40px;
+  color: #333;
+}
+
+#category-icon {
+  vertical-align: bottom;
+  margin-left: 1em;
+}
+
+#category-description {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #666666;
+}
+
 .chat-title-input {
   margin-left: 10px;
   padding: 10px;
@@ -102,5 +132,4 @@ export default defineComponent({
   color: white;
   cursor: pointer;
 }
-
 </style>

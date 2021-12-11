@@ -20,28 +20,14 @@
     </button>
   </div>
 
-  <!--- COMPONENT TOPIC ICI -->
-
   <div class="categories" style="margin-top: 3em" v-if="topicList.length > 0">
     <div
       class="left-border"
       :style="`background: ${category.section.color}; z-index: 10;`"
     ></div>
-    <div v-for="topic in topicList"
-      :key="topic.id" style="position: relative;">
-    <router-link
-      :to="{ name: 'Topic', params: { topic: topic.id } }"
-    >
-      <!--- COMPONENT CATEGORY ICI -->
-      <a class="category" href="#" style="height: 40px; line-height: 40px">
-        {{ topic.subject }} | {{ postsCount(topic.id) }} posts 
-      </a>
-      <!--- FIN COMPONENT -->
-    </router-link>
-    <button style="margin-left: 20px; float: right; position: absolute; right: 30px; top: 15px;" @click="deleteTopic(topic.id)" >
-      DELETE
-    </button>
-    </div>
+
+    <TopicLink v-for="topic in topicList" :key="topic.id" :topic="topic" :user="{name: 'Thomas', color: '#3B585A', rank: 'Zouz'}"></TopicLink>
+
   </div>
 
   <div v-if="topicList.length === 0" id="no-topics" style="margin-top: 3em">

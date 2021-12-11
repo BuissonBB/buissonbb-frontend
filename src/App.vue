@@ -3,6 +3,7 @@
   <div id="main">
     <router-view/>
   </div>
+  <div id="footer"></div>
 </template>
 
 <script>
@@ -38,6 +39,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: #196c3c;
+}
+
 #main {
     max-width: 974px;
     margin: auto;
@@ -53,4 +58,9 @@ button {
     bottom: -10px;
     border-radius: 10px 0 10px 0;
 }
+
+#footer{
+  height: 10%;
+}
+
 </style>

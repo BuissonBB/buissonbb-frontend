@@ -23,6 +23,7 @@
           class="message-settings"
           @click="deletePost(post.id)"
           src="@/assets/trash.svg"
+          v-if="currentUser && currentUser.admin"
         />
       </div>
       <div class="message-content">
@@ -35,6 +36,8 @@
 <script lang="ts">
 import { usePosts } from "@/use/usePosts";
 import moment from "moment";
+import app from "@/feathers-client";
+import { defineComponent, ref } from "vue";
 
 moment.locale("fr");
 
@@ -42,7 +45,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export default {
+export default defineComponent({
   methods: {
     formatDate: (dateStr) => {
       if (!dateStr) return "";
@@ -69,11 +72,22 @@ export default {
   setup() {
     const { deletePost } = usePosts();
 
+    const currentUser = ref(null);
+
+    const auth = app.get('authentication');
+    auth && auth.then(auth => currentUser.value = auth.user);
+
+    app.addListener("authenticated", (user) => {
+      currentUser.value = user;
+      console.log("user:", user);
+    });
+
     return {
       deletePost,
+      currentUser
     };
   },
-};
+});
 </script>
 
 <style scoped>

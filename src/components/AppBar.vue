@@ -29,6 +29,7 @@ export default defineComponent({
             console.log("signout")
             localStorage.removeItem('access-token');
             app.emit('authenticated', null);
+            app.logout().then(() => location.reload());
         }
     },
     setup() {

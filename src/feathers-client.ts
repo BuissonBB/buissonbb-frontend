@@ -18,4 +18,8 @@ app.configure(authentication({
     path: '/authentication'
 }));
 
+app.reAuthenticate().then(e => {
+    app.emit('authenticated', e.user);
+}).catch();
+
 export default app

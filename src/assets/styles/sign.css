@@ -57,3 +57,7 @@ input[type="checkbox"] {
 .centered {
     text-align: center;
 }
+
+.error {
+    color: red;
+}

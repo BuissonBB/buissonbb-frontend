@@ -12,7 +12,8 @@
             </router-link>
         </div>
         <div id="auth-buttons" v-if="currentUser">
-            <a href="#" class="auth-button">Hello {{ currentUser.username }} !</a>
+            <a href="#" class="auth-button">Profile: {{ currentUser.username }}</a>
+            <a href="#" class="auth-button"><img src="@/assets/signout.svg" id="signout-icon" @click="signout"/></a>
         </div>
     </header>
 </template>
@@ -23,13 +24,18 @@ import { defineComponent, ref } from "vue";
 import app from '@/feathers-client';
 
 export default defineComponent({
+    methods: {
+        async signout() {
+            await app.logout();
+            app.emit('authenticated', null);
+        }
+    },
     setup() {
         const { title, colors } = useForumConfig();
         const currentUser = ref(null);
 
-        app.reAuthenticate().then(e => {
-            console.log("re auth", e)
-            currentUser.value = e.user;
+        app.addListener('authenticated', (user) => {
+            currentUser.value = user;
         });
 
         return {
@@ -109,5 +115,11 @@ export default defineComponent({
 .auth-button:hover::after {
     left: 40%;
     right: 40%;
+}
+#signout-icon {
+    vertical-align: middle;
+    width: 30px;
+    position: relative;
+    bottom: 2px;
 }
 </style>

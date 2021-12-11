@@ -16,9 +16,8 @@
           <label for="email">Password</label>
           <input type="password" id="password" name="password" v-model="loginForm.password" />
         </div>
-        <div class="form-inline">
-          <label for="email">Remember Me</label>
-          <input type="checkbox" id="remember" name="remember" />
+        <div class="form-block">
+          <p class="error">{{ loginForm.error ? "Error: "+loginForm.error : "&nbsp;" }}</p>
         </div>
         <div class="centered">
           <button type="submit">Sign in</button>
@@ -37,7 +36,7 @@ export default defineComponent({
     const loginForm = ref({
       email: "",
       password: "",
-      hasError: false,
+      error: ""
     });
 
     return {
@@ -50,29 +49,19 @@ export default defineComponent({
       e.preventDefault();
       console.log("login", this.loginForm)
 
-      this.loginForm.hasError = false;
       try {
-        try {
-          await app.logout();
-        }catch(error: any) {
-          console.log(error);
-        }
-        await app.authenticate({
+        await app.logout().catch();
+        const result = await app.authenticate({
           strategy: "local",
           email: this.loginForm.email,
           password: this.loginForm.password,
         });
         this.loginForm.email = "";
         this.loginForm.password = "";
+        app.emit('authenticated', result.user);
         await this.$router.push("/");
       } catch (error: any) {
-        console.log(error);
-        // if (error.code === 401)
-        //   this.messageState.displayError(
-        //     "Utilisateur ou mot de passe incorrect."
-        //   );
-        // else this.messageState.displayError("Impossible de se connecter.");
-        // this.loginForm.hasError = true;
+        this.loginForm.error = error.message;
       }
     },
   },
@@ -80,4 +69,5 @@ export default defineComponent({
 </script>
 
 <style scoped src="@/assets/styles/sign.css">
+
 </style>

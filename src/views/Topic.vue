@@ -1,17 +1,22 @@
 <template>
+  <div id="title-background"></div>
+
   <h2 id="topic-subject">{{ topic.subject }}</h2>
 
   <Post v-for="post in postList" :key="post.id" :post="post" :user="{name: 'diego', color: '#EB5757', rank: 'UwU'}"></Post>
+
+  <div v-if="postList.length === 0" id="no-posts" style="margin-top: 5em">
+    There is not post in this topic. Be the first to send one!
+  </div>
 
   <br/>
 
   <div class="chat-bar">
     <label>
-      <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="sendPost" v-model="messageText"/>
+      <input type="text" placeholder="Write a message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="sendPost" v-model="messageText"/>
     </label>
-    <button @click=sendPost id="send" disabled>Envoyer</button>
+    <button @click=sendPost id="send" disabled>Send</button>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -87,6 +92,16 @@ export default defineComponent({
   border: 1px solid grey;
   padding-left: 1%;
   padding-right: 1%;
+}
+
+#title-background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 250px;
+  background-color: #EAEAEA;
 }
 
 </style>

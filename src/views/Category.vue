@@ -34,7 +34,7 @@
     >
       <!--- COMPONENT CATEGORY ICI -->
       <a class="category" href="#" style="height: 40px; line-height: 40px">
-        {{ topic.subject }} | {{ postsCount(topic.id) }} posts 
+        {{ topic.subject }} | {{ postsCount(topic.id) }} posts
       </a>
       <!--- FIN COMPONENT -->
     </router-link>
@@ -45,7 +45,7 @@
   </div>
 
   <div v-if="topicList.length === 0" id="no-topics" style="margin-top: 3em">
-    There are not topic in this category. Be the first to open one!
+    There is not topic in this category. Be the first to open one!
   </div>
 
   <!--- FIN COMPONENT -->

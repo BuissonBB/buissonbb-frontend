@@ -10,7 +10,12 @@
   <p id="category-description">{{ category && category.description }}</p>
 
   <div class="new-chat" style="margin-top: 3em">
-    <button @click="addTopic(newTopicTitle, route.params.category, 1)">
+        <label>
+      New Topic title
+      <input class="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
+    </label>
+
+    <button @click="addTopic(newTopicTitle, route.params.category, 1)" style="margin-left: 1em;">
       OPEN NEW TOPIC
     </button>
   </div>
@@ -29,8 +34,13 @@
     >
       <!--- COMPONENT CATEGORY ICI -->
       <a class="category" href="#" style="height: 40px; line-height: 40px">
-        {{ topic.subject }} | {{ postsCount(topic.id) }} posts
+        {{ topic.subject }} | {{ postsCount(topic.id) }} posts 
+                <button style="margin-left: 20px; float: right;" @click="deleteTopic(topic.id)" >
+        DELETE
+      </button>
       </a>
+
+
       <!--- FIN COMPONENT -->
     </router-link>
   </div>

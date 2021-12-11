@@ -44,8 +44,14 @@ import { useForumConfig } from "@/use/useForumConfig";
 import { useRoute } from "vue-router";
 import { asset } from "@/settings";
 import { usePosts } from "@/use/usePosts";
+import TopicLink from "@/components/TopicLink.vue";
 
 export default defineComponent({
+
+  components: {
+      TopicLink
+    },
+
   methods: {
     asset,
   },

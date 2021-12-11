@@ -1,13 +1,14 @@
 <template>
-<router-link :to="{ name: 'Topic', params: { topic: topic.id } }">
-  <a class="category" href="#" style="height: 40px; line-height: 40px">
-    {{ topic.subject }} | {{ postsCount(topic.id) }} posts
-  </a>
-</router-link>
-
-<button @click="deleteTopic(topic.id)" >
-  DELETE
-</button>
+  <div class="topicLink">
+    <router-link :to="{ name: 'Topic', params: { topic: topic.id } }">
+      <a class="category" href="#" style="height: 40px; line-height: 40px">
+        {{ topic.subject }} | {{ postsCount(topic.id) }} posts
+      </a>
+    </router-link>
+    <button class="deleteTopic" @click="deleteTopic(topic.id)" >
+      DELETE
+    </button>
+  </div>
 </template>
 
 
@@ -46,13 +47,15 @@ export default {
 };
 </script>
 
-
 <style>
-button {
-  margin-left: 20px;
-  position: absolute;
-  right: 30px;
-  top: 15px;
-}
+  .deleteTopic {
+    position: absolute;
+    margin-left: 20px;
+    right: 30px;
+    top: 15px;
+  }
 
+  .topicLink {
+    position: relative;
+  }
 </style>

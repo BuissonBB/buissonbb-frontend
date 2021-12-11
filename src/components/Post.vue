@@ -137,6 +137,11 @@ export default {
   top: 13px;
   right: 0px;
   cursor: pointer;
+  opacity: 0.7;
+}
+
+.message-settings:hover {
+  opacity: 1;
 }
 
 .message-content {

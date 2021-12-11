@@ -32,6 +32,7 @@ function retrieveForumConfig() {
     let categories = {};
     for(const section of forumConfigState.structure.sections) {
       for(const category of section.categories) {
+        category.section = section;
         categories[category.id] = category;
       }
     }

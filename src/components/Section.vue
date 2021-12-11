@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .section {
     margin-bottom: 5em;
 }

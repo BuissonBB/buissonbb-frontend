@@ -42,6 +42,7 @@ button {
     max-width: 974px;
     margin: auto;
     margin-top: 8em;
+    padding: 1em;
 }
 
 .left-border {

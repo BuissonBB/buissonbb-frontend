@@ -7,9 +7,12 @@
       style="margin-right: 30px"
     />
   </h2>
+
+  <img class="return-icon" src="@/assets/arrow.svg" @click="$router.go(-1)"/>
+
   <p id="category-description">{{ category && category.description }}</p>
 
-  <div class="new-chat" style="margin-top: 3em">
+  <div class="new-chat" style="margin-top: 3em" v-if="currentUser">
     <label>
       New Topic title
       <input v-on:keyup="isInputEmpty" v-on:keyup.enter="createTopic" id="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
@@ -19,6 +22,7 @@
       OPEN NEW TOPIC
     </button>
   </div>
+  <div v-else><br/></div>
 
   <div v-if="topicList.length === 0" id="no-topics">
     There is no topic in this category. Be the first to open one!
@@ -45,6 +49,7 @@ import { useRoute } from "vue-router";
 import { asset } from "@/settings";
 import { usePosts } from "@/use/usePosts";
 import TopicLink from "@/components/TopicLink.vue";
+import app from "@/feathers-client";
 
 export default defineComponent({
 
@@ -59,6 +64,15 @@ export default defineComponent({
     const route = useRoute();
 
     const newTopicTitle = ref("");
+
+    const currentUser = ref(null);
+
+    const auth = app.get('authentication');
+    auth && auth.then(auth => currentUser.value = auth.user);
+
+    app.addListener("authenticated", (user) => {
+      currentUser.value = user;
+    });
 
     const { topicList, addTopic, deleteTopic } = useTopics();
     const { category } = useForumConfig();
@@ -89,6 +103,7 @@ export default defineComponent({
       postsCount,
       createTopic,
       isInputEmpty,
+      currentUser,
       topicList: topicList(route.params.category),
       category: category(route.params.category),
     };

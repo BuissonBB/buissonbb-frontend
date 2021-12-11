@@ -5,7 +5,7 @@
         {{ topic.subject }} | {{ postsCount(topic.id) }} posts
       </a>
     </router-link>
-    <button class="deleteTopic" @click="deleteTopic(topic.id)" >
+    <button class="deleteTopic" @click="deleteTopic(topic.id)" v-if="currentUser && currentUser.admin">
       DELETE
     </button>
   </div>
@@ -16,6 +16,8 @@
 import { usePosts } from "@/use/usePosts";
 import { useTopics } from "@/use/useTopics"
 import moment from "moment";
+import {ref} from "vue";
+import app from "@/feathers-client";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -34,12 +36,22 @@ export default {
   },
 
   setup() {
+    const currentUser = ref(null);
+
+    const auth = app.get('authentication');
+    auth && auth.then(auth => currentUser.value = auth.user);
+
+    app.addListener("authenticated", (user) => {
+      currentUser.value = user;
+    });
+
     const { postsCount } = usePosts();
     const { deleteTopic } = useTopics();
 
     return {
       postsCount,
-      deleteTopic
+      deleteTopic,
+      currentUser
     };
   },
 };

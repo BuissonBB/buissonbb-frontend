@@ -39,7 +39,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover:not([disabled]) {
   background-color: #196c3c;
 }
 
@@ -63,4 +63,17 @@ button:hover {
   height: 10%;
 }
 
+.return-icon {
+  z-index: 500;
+  width: 40px;
+  position: fixed;
+  top: 90px;
+  left: 30px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.return-icon:hover {
+  opacity: 1;
+}
 </style>

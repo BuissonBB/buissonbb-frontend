@@ -77,7 +77,6 @@ export default defineComponent({
 
     app.addListener("authenticated", (user) => {
       currentUser.value = user;
-      console.log("user:", user);
     });
 
     return {

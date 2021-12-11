@@ -5,8 +5,7 @@
 
   <br/>
 
-  <div class="chatbar">
-    <hr/>
+  <div class="chat-bar">
     <label>
       <input type="text" placeholder="Envoyer un message" id="inputChat" v-on:keyup="isInputEmpty" v-on:keyup.enter="sendPost" v-model="messageText"/>
     </label>
@@ -66,3 +65,28 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+
+.chat-bar{
+  background-color: #EAEAEA;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  text-align: center;
+}
+
+#inputChat{
+  width: 50%;
+  height: 40px;
+  font-size: 18px;
+  margin-right: 2%;
+  border-radius: 5px;
+  border: 1px solid grey;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+</style>

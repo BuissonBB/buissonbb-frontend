@@ -107,6 +107,7 @@ export default defineComponent({
 }
 
 .chat-title-input {
+  font-size: 18px;
   margin-left: 10px;
   padding: 10px;
   border-radius: 5px;

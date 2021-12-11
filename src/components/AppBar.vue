@@ -51,7 +51,10 @@ export default defineComponent({
 <style scoped>
 #appbar {
     display: block;
-    position: relative;
+    position: fixed;
+    z-index: 200;
+    top: 0;
+    width: 100%;
     height: 66px;
     font-family: 'Comfortaa';
     color: white;

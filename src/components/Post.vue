@@ -22,13 +22,6 @@
         {{ post.text }}
       </div>
     </div>
-    <!-- <div id="delete-image">
-      <img
-        id="delete-button"
-        @click="deletePost(post.id)"
-        src="../../src/assets/trash.png"
-      />
-    </div> -->
   </div>
 </template>
 
@@ -156,24 +149,5 @@ export default {
 
 .message-meta > p {
   margin: 0;
-}
-
-#delete-button {
-  height: 25px;
-  cursor: pointer;
-  text-align: right;
-  opacity: 0.5;
-}
-
-#delete-button:hover {
-  opacity: 1;
-}
-
-#delete-image {
-  text-align: right;
-  right: 10px;
-  top: 10px;
-  position: absolute;
-  cursor: pointer;
 }
 </style>

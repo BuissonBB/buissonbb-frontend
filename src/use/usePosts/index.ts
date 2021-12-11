@@ -7,7 +7,11 @@ interface Post {
   id : number;
   text: string;
   topicId: number;
-  authorId: number;
+  author: {
+    username: string;
+    picture?: string;
+    admin: boolean;
+  };
 }
 
 interface PostState {

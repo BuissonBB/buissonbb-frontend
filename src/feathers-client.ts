@@ -19,6 +19,7 @@ app.configure(authentication({
 }));
 
 app.reAuthenticate().then(e => {
+    console.log("auth")
     app.emit('authenticated', e.user);
 }).catch();
 

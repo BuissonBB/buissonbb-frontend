@@ -3,7 +3,7 @@
 
   <h2 id="topic-subject">{{ topic.subject }}</h2>
 
-  <Post v-for="post in postList" :key="post.id" :post="post" :user="{name: 'diego', color: '#EB5757', rank: 'UwU'}"></Post>
+  <Post v-for="post in postList" :key="post.id" :post="post" :user="post.user"></Post>
 
   <div v-if="postList.length === 0" id="no-posts" style="margin-top: 5em">
     There is not post in this topic. Be the first to send one!

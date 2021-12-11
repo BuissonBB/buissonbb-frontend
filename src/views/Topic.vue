@@ -67,7 +67,7 @@ export default defineComponent({
 </script>
 <style>
 
-.chat-bar{
+.chat-bar {
   background-color: #EAEAEA;
   width: 100%;
   position: fixed;
@@ -78,7 +78,7 @@ export default defineComponent({
   text-align: center;
 }
 
-#inputChat{
+#inputChat {
   width: 50%;
   height: 40px;
   font-size: 18px;
@@ -87,6 +87,11 @@ export default defineComponent({
   border: 1px solid grey;
   padding-left: 1%;
   padding-right: 1%;
+}
+
+#send:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 </style>

@@ -12,10 +12,10 @@
   <div class="new-chat" style="margin-top: 3em">
     <label>
       New Topic title
-      <input v-on:keyup.enter="createTopic" id="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
+      <input v-on:keyup="isInputEmpty" v-on:keyup.enter="createTopic" id="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
     </label>
 
-    <button id="createTopicButton" @click="createTopic" style="margin-left: 1em;">
+    <button id="createTopicButton" @click="createTopic" style="margin-left: 1em;" disabled>
       OPEN NEW TOPIC
     </button>
   </div>
@@ -66,13 +66,19 @@ export default defineComponent({
 
     function createTopic() {
       const inputChat = document.getElementById("chat-title-input") as HTMLInputElement;
+      const sendButton = document.getElementById("createTopicButton") as HTMLButtonElement;
       if (inputChat.value !== "") {
         addTopic(newTopicTitle.value, Number(route.params.category), 1);
         newTopicTitle.value = '';
         inputChat.focus();
-        const sendButton = document.getElementById("createTopicButton") as HTMLButtonElement;
         sendButton.disabled = true;
       }
+    }
+
+    function isInputEmpty() {
+      const inputChat = document.getElementById("chat-title-input") as HTMLInputElement;
+      const sendButton = document.getElementById("createTopicButton") as HTMLInputElement;
+      sendButton.disabled = inputChat.value === "";
     }
 
     return {
@@ -82,6 +88,7 @@ export default defineComponent({
       deleteTopic,
       postsCount,
       createTopic,
+      isInputEmpty,
       topicList: topicList(route.params.category),
       category: category(route.params.category),
     };
@@ -123,5 +130,10 @@ export default defineComponent({
 
 #no-topics {
   margin-top: 3em;
+}
+
+#createTopicButton:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 </style>

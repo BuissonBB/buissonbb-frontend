@@ -1,7 +1,7 @@
 <template>
   <h2 id="topic-subject">{{ topic.subject }}</h2>
 
-  <Post v-for="post in postList" :key="post.id" :post="post" :user="{name: 'diego', color: '#EB5757', rank: 'UwU'}"></Post>
+  <Post v-for="post in postList" :key="post.id" :post="post" :user="post.user"></Post>
 
   <br/>
 

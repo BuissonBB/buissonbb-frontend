@@ -1,17 +1,24 @@
 <template>
   <div class="message">
     <div class="user-meta">
-      <div class="user-color" :style="`background: ${user.color}`"></div>
+      <div
+        class="user-color"
+        :style="`background: ${color(user.username)}`"
+      ></div>
       <div class="user-profile-picture" :style="`background: #eee;`"></div>
       <div class="user-info">
-        <p class="user-name">{{ user.name }}</p>
-        <p class="user-rank">{{ user.rank }}</p>
+        <p class="user-name">{{ user.username }}</p>
+        <p class="user-rank">{{ user.admin ? "Admin" : "Membre" }}</p>
       </div>
     </div>
     <div class="message-main">
       <div class="message-meta">
-        <span class="message-publish-date">{{ formatDate(post.created_date) }}</span>
-        <span class="message-edit-date">{{ formatDate(post.modified_date) }}</span>
+        <span class="message-publish-date">{{
+          formatDate(post.created_date)
+        }}</span>
+        <span class="message-edit-date">{{
+          formatDate(post.modified_date)
+        }}</span>
         <img
           class="message-settings"
           @click="deletePost(post.id)"
@@ -36,7 +43,7 @@
 import { usePosts } from "@/use/usePosts";
 import moment from "moment";
 
-moment.locale('fr');
+moment.locale("fr");
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -44,10 +51,22 @@ function capitalizeFirstLetter(string) {
 
 export default {
   methods: {
-      formatDate: (dateStr) => {
-          if(!dateStr) return "";
-          return capitalizeFirstLetter(moment(dateStr).fromNow());
+    formatDate: (dateStr) => {
+      if (!dateStr) return "";
+      return capitalizeFirstLetter(moment(dateStr).fromNow());
+    },
+    color: (str) => {
+      var hash = 0;
+      for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
       }
+      var colour = "#";
+      for (var i = 0; i < 3; i++) {
+        var value = (hash >> (i * 8)) & 0xff;
+        colour += ("00" + value.toString(16)).substr(-2);
+      }
+      return colour;
+    },
   },
   props: {
     post: Object,
@@ -147,7 +166,7 @@ export default {
 }
 
 .message-content {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .message-content p {

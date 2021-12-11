@@ -21,7 +21,7 @@ a {
 }
 
 body {
-  margin: 0;
+  margin: 0px 0px 50px 0px;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   background-color: #F2F2F2;
 }

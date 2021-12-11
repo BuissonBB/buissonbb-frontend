@@ -7,14 +7,14 @@ interface User {
     password: string;
 }
 
-
+let registerResolve: (User) => void;
 
 app.service('users').on('created', async (item: User) => {
    console.log('ITEMS EVENT created', item)
 })
 
-const register = (username: string, email: string, password: string) => {
-   app.service('users').create({ username, email, password })
+const register = async (username: string, email: string, password: string) => {
+   return app.service('users').create({ username, email, password });
 }
 
 export function useUsers() {

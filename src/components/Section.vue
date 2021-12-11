@@ -8,8 +8,8 @@
             <a class="category" href="#">
                 <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>
                 {{ category.name }}
-                | {{ topicsCount(category.id) }} Topics
-                | {{ totalPostsCount(category.id) }} Posts
+                | {{ topicsCount(category.id) }} Topic(s)
+                | {{ totalPostsCount(category.id) }} Post(s)
             </a>
             <!--- FIN COMPONENT -->
             </router-link>

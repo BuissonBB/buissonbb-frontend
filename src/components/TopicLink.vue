@@ -2,7 +2,7 @@
   <div class="topicLink">
     <router-link :to="{ name: 'Topic', params: { topic: topic.id } }">
       <a class="category" href="#" style="height: 40px; line-height: 40px">
-        {{ topic.subject }} | {{ postsCount(topic.id) }} posts
+        {{ topic.subject }} | {{ postsCount(topic.id) }} post(s)
       </a>
     </router-link>
     <button class="deleteTopic" @click="deleteTopic(topic.id)" v-if="currentUser && currentUser.admin">

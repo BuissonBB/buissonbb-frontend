@@ -10,14 +10,18 @@
   <p id="category-description">{{ category && category.description }}</p>
 
   <div class="new-chat" style="margin-top: 3em">
-        <label>
+    <label>
       New Topic title
-      <input class="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
+      <input v-on:keyup.enter="createTopic" id="chat-title-input" type="text" v-model="newTopicTitle" placeholder="Select a new topic title" />
     </label>
 
-    <button @click="addTopic(newTopicTitle, route.params.category, 1)" style="margin-left: 1em;">
+    <button id="createTopicButton" @click="createTopic" style="margin-left: 1em;">
       OPEN NEW TOPIC
     </button>
+  </div>
+
+  <div v-if="topicList.length === 0" id="no-topics">
+    There is no topic in this category. Be the first to open one!
   </div>
 
   <div class="categories" style="margin-top: 3em" v-if="topicList.length > 0">
@@ -27,10 +31,6 @@
     ></div>
 
     <TopicLink v-for="topic in topicList" :key="topic.id" :topic="topic" :user="{name: 'Thomas', color: '#3B585A', rank: 'Zouz'}"></TopicLink>
-
-    <div v-if="topicList.length === 0" id="no-topics" style="margin-top: 3em">
-      There are not topic in this category. Be the first to open one!
-    </div>
 
   </div>
 </template>
@@ -49,8 +49,8 @@ import TopicLink from "@/components/TopicLink.vue";
 export default defineComponent({
 
   components: {
-      TopicLink
-    },
+    TopicLink
+  },
 
   methods: {
     asset,
@@ -64,12 +64,24 @@ export default defineComponent({
     const { category } = useForumConfig();
     const { postsCount } = usePosts();
 
+    function createTopic() {
+      const inputChat = document.getElementById("chat-title-input") as HTMLInputElement;
+      if (inputChat.value !== "") {
+        addTopic(newTopicTitle.value, Number(route.params.category), 1);
+        newTopicTitle.value = '';
+        inputChat.focus();
+        const sendButton = document.getElementById("createTopicButton") as HTMLButtonElement;
+        sendButton.disabled = true;
+      }
+    }
+
     return {
       route,
       newTopicTitle,
       addTopic,
       deleteTopic,
       postsCount,
+      createTopic,
       topicList: topicList(route.params.category),
       category: category(route.params.category),
     };
@@ -96,7 +108,7 @@ export default defineComponent({
   color: #666666;
 }
 
-.chat-title-input {
+#chat-title-input {
   font-size: 18px;
   margin-left: 10px;
   padding: 10px;
@@ -109,27 +121,7 @@ export default defineComponent({
   text-align: right;
 }
 
-.new-chat-button {
-  margin: 20px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: transparent;
-  border: 1px solid gray;
-  color: gray;
-  cursor: pointer;
-}
-
-.new-chat-button:hover {
-  background-color: gray;
-  border: 1px solid gray;
-  color: white;
-  cursor: pointer;
-}
-
-.new-chat-button:active {
-  background-color: #575757;
-  border: 1px solid #575757;
-  color: white;
-  cursor: pointer;
+#no-topics {
+  margin-top: 3em;
 }
 </style>

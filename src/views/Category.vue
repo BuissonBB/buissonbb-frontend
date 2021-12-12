@@ -121,6 +121,8 @@ export default defineComponent({
 #category-icon {
   vertical-align: bottom;
   margin-left: 1em;
+  margin-right: 30px;
+  max-width: 65px;
 }
 
 #category-description {

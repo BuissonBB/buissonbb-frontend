@@ -5,6 +5,9 @@
         <Section :name="section.name" :icon="section.icon" :color="section.color" :categories="section.categories"/>
       </div>
     </div>
+    <div v-else>
+      Please wait for the forum backend to start. It should take ~10 seconds.
+    </div>
   </div>
 </template>
 

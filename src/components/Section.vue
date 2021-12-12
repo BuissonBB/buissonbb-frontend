@@ -4,14 +4,12 @@
         <div class="categories">
             <div class="left-border" :style="`background: ${color};`"></div>
             <router-link v-for="category in categories" :key="category.name" :to="{ name: 'Category', params: { category: category.id } }">
-            <!--- COMPONENT CATEGORY ICI -->
             <a class="category" href="#">
                 <div  class="category-icon" :style="`background-image: url(${ asset(category.icon) });`"></div>
                 {{ category.name }}
-                | {{ topicsCount(category.id) }} Topic(s)
-                | {{ totalPostsCount(category.id) }} Post(s)
+                | {{ topicsCount(category.id) }} {{ topicSingularOrPlural(topicsCount(category.id)) }}
+                | {{ totalPostsCount(category.id) }} {{ postSingularOrPlural(totalPostsCount(category.id)) }}
             </a>
-            <!--- FIN COMPONENT -->
             </router-link>
         </div>
     </div>
@@ -24,7 +22,21 @@ import {useTopics} from "@/use/useTopics";
 
 export default {
     methods: {
-        asset
+      asset,
+
+      postSingularOrPlural: (postsNumber) => {
+        if (postsNumber > 1) {
+          return "posts"
+        }
+        return "post"
+      },
+
+      topicSingularOrPlural: (topicsNumber) => {
+        if (topicsNumber > 1) {
+          return "topics"
+        }
+        return "topic"
+      }
     },
 
     props: {

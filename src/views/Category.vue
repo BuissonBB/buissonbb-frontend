@@ -34,7 +34,7 @@
       :style="`background: ${category.section.color}; z-index: 10;`"
     ></div>
 
-    <TopicLink v-for="topic in topicList" :key="topic.id" :topic="topic" :user="{name: 'Thomas', color: '#3B585A', rank: 'Zouz'}"></TopicLink>
+    <TopicLink v-for="topic in topicList" :key="topic.id" :topic="topic" :user="{name: 'Thomas', color: '#3B585A', rank: 'Member'}"></TopicLink>
 
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div class="topicLink">
     <router-link :to="{ name: 'Topic', params: { topic: topic.id } }">
       <a class="category" href="#" style="height: 40px; line-height: 40px">
-        {{ topic.subject }} | {{ postsCount(topic.id) }} post(s)
+        {{ topic.subject }} | {{ postsCount(topic.id) }} {{ singularOrPlural(postsCount(topic.id)) }}
       </a>
     </router-link>
     <button class="deleteTopic" @click="deleteTopic(topic.id)" v-if="currentUser && currentUser.admin">
@@ -28,6 +28,13 @@ export default {
     formatDate: (dateStr) => {
       if(!dateStr) return "";
       return capitalizeFirstLetter(moment(dateStr).fromNow());
+    },
+
+    singularOrPlural: (postsNumber) => {
+      if (postsNumber > 1) {
+        return "posts"
+      }
+      return "post"
     }
   },
   props: {
